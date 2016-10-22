@@ -62,7 +62,17 @@ bundle install
 Install the MJML parser (optional -g to install it globally):
 
 ```console
-npm install -g mjml@^2.0
+npm install -g mjml@^3.0
+```
+
+### MJML v3.x support
+
+Version 2.3.0 of this gem brings support for MJML 3.x
+
+If you'd rather still stick with MJML 2.x then lock the mjml-rails gem:
+
+```ruby
+gem 'mjml-rails', '2.2.0'
 ```
 
 ### How to guides
@@ -127,7 +137,7 @@ Next you'll need to setup a `package.json` file in the root, something like this
     "test": "test"
   },
   "dependencies": {
-    "mjml": "^2.0"
+    "mjml": "^3.0"
   },
   "repository": {
     "type": "git",

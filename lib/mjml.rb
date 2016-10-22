@@ -8,7 +8,7 @@ module Mjml
 
   def self.check_version(bin)
     begin
-      Gem::Dependency.new('','~> 2.0').match?('',`#{bin} --version`)
+      Gem::Dependency.new('','~> 3.0').match?('',`#{bin} --version`)
     rescue
       false
     end
