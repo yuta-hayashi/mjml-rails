@@ -65,6 +65,15 @@ Install the MJML parser (optional -g to install it globally):
 npm install -g mjml@^3.0
 ```
 
+If you're using ```:haml``` or any other Rails template language, create an initializer to set it up:
+
+```ruby
+# config/initializers/mjml.rb
+Mjml.setup do |config|
+  config.template_language = :erb # :erb (default), :slim, :haml, or any other you are using
+end
+```
+
 ### MJML v3.x support
 
 Version 2.3.0 of this gem brings support for MJML 3.x
