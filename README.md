@@ -65,8 +65,6 @@ Install the MJML parser (optional -g to install it globally):
 npm install -g mjml@^3.0
 ```
 
-NOTE: there seems to be a [path related bug](https://github.com/mjmlio/mjml/issues/501) with ```mjml 3.2.0```, so perhaps use ```npm install -g mjml@3.1.1```.
-
 If you're using ```:haml``` or any other Rails template language, create an initializer to set it up:
 
 ```ruby
