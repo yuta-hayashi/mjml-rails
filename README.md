@@ -88,6 +88,74 @@ gem 'mjml-rails', '2.2.0'
 
 [Hugo Giraudel](https://twitter.com/hugogiraudel) wrote a post on [using MJML in Rails](http://dev.edenspiekermann.com/2016/06/02/using-mjml-in-rails/).
 
+## Using Email Layouts
+
+Mailer:
+```ruby
+# mailers/foo_mailer.rb
+class MyMailer < ActionMailer::Base
+  layout "default"
+
+  def mail_template(template_name, recipient, subject, **params)
+    mail(
+      to: recipient.email,
+      from: ENV["MAILER_FROM"],
+      subject: subject
+    ) do |format|
+      format.mjml { render template_name, locals: { recipient: recipient }.merge(params) }
+    end
+  end
+
+  # this function is called to send the email
+  def foo(item, user)
+    mail_template(
+      "foo_bar",
+      user,
+      "email subject",
+      request: item
+    )
+  end
+end
+```
+
+Email layout:
+```html
+<!-- views/layouts/default.mjml -->
+<mjml>
+	<mj-body>
+		<mj-container>
+			<%= yield %>
+		</mj-container>
+	</mj-body>
+</mjml>
+```
+
+Email view:
+```html
+<!-- views/my_mailer/foo_bar.mjml.erb -->
+<%= render partial: "to", formats: [:html], locals: { name: recipient.name } %>
+
+<mj-section>
+	<mj-column>
+		<mj-text>
+			Hello <%= recipient.name %>!
+		</mj-text>
+	</mj-column>
+</mj-section>
+```
+
+Email partial:
+```html
+<!-- views/my_mailer/_to.mjml -->
+<mj-section>
+	<mj-column>
+		<mj-text>
+			<%= name %>,
+		</mj-text>
+	</mj-column>
+</mj-section>
+```
+
 ## Sending Devise user emails
 
 If you use [Devise](https://github.com/plataformatec/devise) for user authentication and want to send user emails with MJML templates, here's how to override the [devise mailer](https://github.com/plataformatec/devise/blob/master/app/mailers/devise/mailer.rb):
