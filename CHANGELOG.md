@@ -1,3 +1,11 @@
+## 2.4.1
+
+* Using IO.popen from tylerhunt's branch to check if the MJML binary is installed.
+
+## 2.3.0
+
+* Updated to support HAML and other template languages.
+
 ## 2.2.0
 
 * Updated to work with MJML v2.x
