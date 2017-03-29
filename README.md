@@ -65,6 +65,8 @@ Install the MJML parser (optional -g to install it globally):
 npm install -g mjml@^3.0
 ```
 
+Note that you'll need at least Node.js version 6 for MJML to function properly.
+
 If you're using ```:haml``` or any other Rails template language, create an initializer to set it up:
 
 ```ruby
