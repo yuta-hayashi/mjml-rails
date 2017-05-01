@@ -5,6 +5,7 @@ module Mjml
     #
     # @param input [String] The string to transform in html
     def initialize input
+      raise "Couldn't find the MJML binary.. have you run $ npm install mjml?" unless mjml_bin
       file = File.open(in_tmp_file, 'w')
       file.write(input)
       file.close

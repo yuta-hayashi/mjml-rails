@@ -25,7 +25,8 @@ module Mjml
     mjml_bin = File.join(`npm bin`.chomp, 'mjml')
     return mjml_bin if check_version(mjml_bin)
 
-    raise RuntimeError, "Couldn't find the MJML binary.. have you run $ npm install mjml?"
+    puts "Couldn't find the MJML binary.. have you run $ npm install mjml?"
+    nil
   end
 
   BIN = discover_mjml_bin
