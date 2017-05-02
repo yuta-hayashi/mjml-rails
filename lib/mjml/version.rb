@@ -1,4 +1,4 @@
 module Mjml
-	# Version number matches MJML.io version
-  VERSION = "2.4.1"
+	# Version number no longer matches MJML.io version
+  VERSION = "2.4.2"
 end
