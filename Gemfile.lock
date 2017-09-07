@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mjml-rails (2.4.2)
+    mjml-rails (2.4.3)
 
 GEM
   remote: https://rubygems.org/
@@ -108,4 +108,4 @@ DEPENDENCIES
   rails
 
 BUNDLED WITH
-   1.11.2
+   1.14.6
