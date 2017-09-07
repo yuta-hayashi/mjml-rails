@@ -1,3 +1,11 @@
+## 2.4.3
+
+* Checks if Yarn is installed for webpacker users.
+
+## 2.4.2
+
+* Only raise error when really using mjml if binary is not found.
+
 ## 2.4.1
 
 * Using IO.popen from tylerhunt's branch to check if the MJML binary is installed.
