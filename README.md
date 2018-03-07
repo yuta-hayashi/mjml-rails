@@ -62,7 +62,7 @@ bundle install
 Install the MJML parser (optional -g to install it globally):
 
 ```console
-npm install -g mjml@^3.0
+npm install -g mjml@4.0.0-beta.1
 ```
 
 Note that you'll need at least Node.js version 6 for MJML to function properly.
@@ -76,9 +76,11 @@ Mjml.setup do |config|
 end
 ```
 
-### MJML v3.x support
+### MJML v3.x & v4.0.x support
 
-Version 2.3.0 of this gem brings support for MJML 3.x
+Version 4.0.x of this gem brings support for MJML 4.0.x
+
+Version 2.3.x and 2.4.x of this gem brings support for MJML 3.x
 
 If you'd rather still stick with MJML 2.x then lock the mjml-rails gem:
 
@@ -170,8 +172,8 @@ class DeviseMailer < Devise::Mailer
     # Custom logic to send the email with MJML
     mail(
       template_path: 'devise/mailer',
-      from: "some@email.com", 
-      to: record.email, 
+      from: "some@email.com",
+      to: record.email,
       subject: "Custom subject"
     ) do |format|
       format.mjml
@@ -216,7 +218,7 @@ Next you'll need to setup a `package.json` file in the root, something like this
     "test": "test"
   },
   "dependencies": {
-    "mjml": "^3.0"
+    "mjml": "^4.0.0-beta.1",
   },
   "repository": {
     "type": "git",
