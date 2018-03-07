@@ -62,7 +62,7 @@ bundle install
 Install the MJML parser (optional -g to install it globally):
 
 ```console
-npm install -g mjml@4.0.0-beta.1
+npm install -g mjml@4.0.0
 ```
 
 Note that you'll need at least Node.js version 6 for MJML to function properly.
@@ -86,6 +86,18 @@ If you'd rather still stick with MJML 2.x then lock the mjml-rails gem:
 
 ```ruby
 gem 'mjml-rails', '2.2.0'
+```
+
+For MJML 3.x lock the mjml-rails gem:
+
+```ruby
+gem 'mjml-rails', '2.4.3'
+```
+
+And then to install MJML 3.x
+
+```console
+npm install -g mjml@3.3.5
 ```
 
 ### How to guides
@@ -218,7 +230,7 @@ Next you'll need to setup a `package.json` file in the root, something like this
     "test": "test"
   },
   "dependencies": {
-    "mjml": "^4.0.0-beta.1",
+    "mjml": "^4.0.0",
   },
   "repository": {
     "type": "git",

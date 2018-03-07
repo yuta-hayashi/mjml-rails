@@ -1,3 +1,7 @@
+## 4.0.0
+
+* Updated for MJML v4.0.0 thanks to JP Boily
+
 ## 2.4.3
 
 * Checks if Yarn is installed for webpacker users.
