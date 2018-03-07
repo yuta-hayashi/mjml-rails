@@ -4,6 +4,8 @@
 
 **MJML-Rails** allows you to render HTML e-mails from an [MJML](https://mjml.io) template.
 
+*Please note: this gem has recently updated to support MJML 4.0.0 - so there may be rendering changes. Check your output! And please submit pull requests for updates to the documentation if needed*
+
 An example template might look like:
 
 ```erb
