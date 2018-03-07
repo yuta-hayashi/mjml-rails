@@ -10,8 +10,7 @@ module Mjml
   @@template_language = :erb
 
   def self.check_version(bin)
-    version = IO.popen("#{bin} --version").read.chomp
-    Gem::Dependency.new('', '~> 3.0').match?('', version)
+    IO.popen("#{bin} --version").read.include?('mjml-core: 4.0.')
   rescue
     false
   end
