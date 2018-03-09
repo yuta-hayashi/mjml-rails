@@ -11,6 +11,9 @@ An example template might look like:
 ```erb
 <!-- ./app/views/user_mailer/email.mjml -->
 <mjml>
+  <mj-head>
+    <mj-preview>Hello World</mj-preview>
+  </mj-head>
   <mj-body>
     <mj-container>
       <mj-section>
