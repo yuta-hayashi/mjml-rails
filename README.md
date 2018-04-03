@@ -4,7 +4,7 @@
 
 **MJML-Rails** allows you to render HTML e-mails from an [MJML](https://mjml.io) template.
 
-*Please note: this gem has recently updated to support MJML 4.0.0 - so there may be rendering changes. Check your output! And please submit pull requests for updates to the documentation if needed*
+*Please note: this gem has recently updated to support MJML 4 - so there may be rendering changes. Check your output! And please submit pull requests for updates to the documentation if needed*
 
 An example template might look like:
 
@@ -67,7 +67,7 @@ bundle install
 Install the MJML parser (optional -g to install it globally):
 
 ```console
-npm install -g mjml@4.0.0
+npm install -g mjml
 ```
 
 Note that you'll need at least Node.js version 6 for MJML to function properly.
@@ -78,6 +78,15 @@ If you're using ```:haml``` or any other Rails template language, create an init
 # config/initializers/mjml.rb
 Mjml.setup do |config|
   config.template_language = :erb # :erb (default), :slim, :haml, or any other you are using
+end
+```
+
+If you'd like to see render errors:
+
+```ruby
+Mjml.setup do |config|
+  # Default is `false` (errors suppressed), set to `true` to enable error raising
+  config.raise_render_exception = true
 end
 ```
 
