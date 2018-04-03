@@ -1,6 +1,10 @@
+## 4.0.1
+
+* Option to raise render errors added to the config by Anh Tran.
+
 ## 4.0.0
 
-* Updated for MJML v4.0.0 thanks to JP Boily
+* Updated for MJML v4.0.0 thanks to JP Boily.
 
 ## 2.4.3
 

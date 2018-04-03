@@ -5,9 +5,10 @@ require "mjml/railtie"
 require "rubygems"
 
 module Mjml
-  mattr_accessor :template_language
+  mattr_accessor :template_language, :raise_render_exception
 
   @@template_language = :erb
+  @@raise_render_exception = false
 
   def self.check_version(bin)
     IO.popen("#{bin} --version").read.include?('mjml-core: 4.0.')

@@ -19,7 +19,7 @@ module Mjml
       remove_tmp_files
       result
     rescue
-
+      raise if Mjml.raise_render_exception
       ""
     end
 
