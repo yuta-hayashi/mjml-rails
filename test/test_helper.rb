@@ -9,6 +9,7 @@ require "action_mailer"
 require "rails/railtie"
 require "rails/generators"
 require "rails/generators/test_case"
+require 'mocha/minitest'
 
 # require "minitest/reporters"
 # Minitest::Reporters.use!
