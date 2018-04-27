@@ -1,3 +1,7 @@
+## 4.0.2
+
+* Max Mulatz, 🧟‍ squisher. Fixed a zombie process from the version checker (also cutest pull-request 🏆).
+
 ## 4.0.1
 
 * Option to raise render errors added to the config by Anh Tran.
