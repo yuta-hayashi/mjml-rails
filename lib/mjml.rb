@@ -11,7 +11,7 @@ module Mjml
   @@raise_render_exception = false
 
   def self.check_version(bin)
-    IO.popen("#{bin} --version").read.include?('mjml-core: 4.0.')
+    IO.popen("#{bin} --version") { |io| io.read.include?('mjml-core: 4.0.') }
   rescue
     false
   end
