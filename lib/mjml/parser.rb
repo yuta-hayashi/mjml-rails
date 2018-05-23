@@ -1,5 +1,8 @@
+require 'open3'
+
 module Mjml
   class Parser
+    class ParseError < StandardError; end
 
     # Create new parser
     #
@@ -28,8 +31,9 @@ module Mjml
     # @return [String] The result as string
     def run
       command = "#{mjml_bin} -r #{in_tmp_file} -o #{out_tmp_file}"
-      # puts command
-      `#{command}`
+      _, _, stderr, _ = Open3.popen3(command)
+      raise ParseError.new(stderr.read.chomp) unless stderr.eof?
+
       file = File.open(out_tmp_file, 'r')
       str  = file.read
       file.close
