@@ -38,4 +38,17 @@ describe Mjml::Parser do
       end
     end
   end
+
+  describe '#run' do
+    describe 'when shell command is failed' do
+      let(:error) { 'shell error' }
+      let(:stderr) { mock('stderr', eof?: false, read: error) }
+
+      before { Open3.stubs(popen3: [nil, nil, stderr, nil]) }
+
+      it 'raises exception' do
+        -> { parser.run }.must_raise(Mjml::Parser::ParseError, error)
+      end
+    end
+  end
 end
