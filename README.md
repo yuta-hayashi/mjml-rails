@@ -273,6 +273,11 @@ If you discover any bugs, feel free to create an issue on GitHub. Please add as 
 * Simon Loffler [github.com/sighmon](https://github.com/sighmon)
 * Steven Pickles [github.com/thatpixguy](https://github.com/thatpixguy)
 
+## Other similar gems
+
+* [srghma/mjml-premailer](https://github.com/srghma/mjml-premailer) - supports `/app/views/layouts`
+* [kolybasov/mjml-ruby/](https://github.com/kolybasov/mjml-ruby/)
+
 ## License
 
 MIT License. Copyright 2016 Simon Loffler. [sighmon.com](http://sighmon.com)
