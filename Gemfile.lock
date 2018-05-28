@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mjml-rails (4.0.2)
+    mjml-rails (4.0.3)
 
 GEM
   remote: https://rubygems.org/

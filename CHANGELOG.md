@@ -1,3 +1,7 @@
+## 4.0.3
+
+* Anh Tran added the use of Open3.popen3 to support error raising for Mjml::Parse#run method.
+
 ## 4.0.2
 
 * Max Mulatz, 🧟‍ squisher. Fixed a zombie process from the version checker (also cutest pull-request 🏆).
