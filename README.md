@@ -13,14 +13,12 @@ An example template might look like:
     <mj-preview>Hello World</mj-preview>
   </mj-head>
   <mj-body>
-    <mj-container>
-      <mj-section>
-        <mj-column>
-          <mj-text>Hello World</mj-text>
-          <%= render :partial => 'info', :formats => [:html] %>
-        </mj-column>
-      </mj-section>
-    </mj-container>
+    <mj-section>
+      <mj-column>
+        <mj-text>Hello World</mj-text>
+        <%= render :partial => 'info', :formats => [:html] %>
+      </mj-column>
+    </mj-section>
   </mj-body>
 </mjml>
 ```
@@ -151,9 +149,7 @@ Email layout:
 <!-- views/layouts/default.mjml -->
 <mjml>
 	<mj-body>
-		<mj-container>
-			<%= yield %>
-		</mj-container>
+		<%= yield %>
 	</mj-body>
 </mjml>
 ```

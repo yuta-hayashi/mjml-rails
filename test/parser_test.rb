@@ -47,7 +47,7 @@ describe Mjml::Parser do
       before { Open3.stubs(popen3: [nil, nil, stderr, nil]) }
 
       it 'raises exception' do
-        -> { parser.run }.must_raise(Mjml::Parser::ParseError, error)
+        -> { parser.run "/tmp/input_file.mjml" }.must_raise(Mjml::Parser::ParseError, error)
       end
     end
   end
