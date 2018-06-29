@@ -1,3 +1,7 @@
+## 4.1.0
+
+* Ryan Ahearn updated for 4.1.0 and improved Tempfile usage.
+
 ## 4.0.3
 
 * Anh Tran added the use of Open3.popen3 to support error raising for Mjml::Parse#run method.
