@@ -5,10 +5,10 @@ module Mjml
     class MailerGenerator < Erb::Generators::MailerGenerator
       source_root File.expand_path("../templates", __FILE__)
 
-      protected
+      private
 
       def format
-        nil # Our templates have no format
+        :html
       end
 
       def formats
@@ -17,6 +17,17 @@ module Mjml
 
       def handler
         :mjml
+      end
+
+      def view_handler
+        Mjml.template_language
+      end
+
+      def filename_with_extensions(name, file_format = format)
+        # Due to MJML single-pass processing nature
+        # layout files MUST have .mjml extension, but views/templates cannot
+        is_layout_file = name.in?([:layout, "mailer"])
+        [name, file_format, is_layout_file ? handler : view_handler].compact.join(".")
       end
     end
   end

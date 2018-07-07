@@ -7,7 +7,7 @@
 An example template might look like:
 
 ```erb
-<!-- ./app/views/user_mailer/email.mjml -->
+<!-- ./app/views/user_mailer/email.html.mjml -->
 <mjml>
   <mj-head>
     <mj-preview>Hello World</mj-preview>
@@ -16,7 +16,7 @@ An example template might look like:
     <mj-section>
       <mj-column>
         <mj-text>Hello World</mj-text>
-        <%= render :partial => 'info', :formats => [:html] %>
+        <%= render partial: "info" %>
       </mj-column>
     </mj-section>
   </mj-body>
@@ -26,19 +26,19 @@ An example template might look like:
 And the partial `_info.mjml`:
 
 ```erb
-<!-- ./app/views/user_mailer/_info.mjml -->
+<!-- ./app/views/user_mailer/_info.html.erb -->
 <mj-text>This is <%= @user.username %></mj-text>
 ```
 
-* Notice you can use ERb and partials inside the template.
+* Notice you can use ERB and partials inside the template.
 
 Your `user_mailer.rb` might look like this::
 
 ```ruby
 # ./app/mailers/user_mailer.rb
 class UserMailer < ActionMailer::Base
-  def user_signup_confirmation()
-    mail(to: 'test@example.com', subject: 'test') do |format|
+  def user_signup_confirmation
+    mail(to: "user@example.com", from: "app@example.com") do |format|
       format.text
       format.mjml
     end
@@ -118,65 +118,53 @@ npm install -g mjml@3.3.5
 
 Mailer:
 ```ruby
-# mailers/foo_mailer.rb
+# mailers/my_mailer.rb
 class MyMailer < ActionMailer::Base
   layout "default"
 
-  def mail_template(template_name, recipient, subject, **params)
-    mail(
-      to: recipient.email,
-      from: ENV["MAILER_FROM"],
-      subject: subject
-    ) do |format|
-      format.mjml { render template_name, locals: { recipient: recipient }.merge(params) }
-    end
-  end
+  def foo_bar(user)
+    @recipient = user
 
-  # this function is called to send the email
-  def foo(item, user)
-    mail_template(
-      "foo_bar",
-      user,
-      "email subject",
-      request: item
-    )
+    mail(to: user.email, from: "app@example.com") do |format|
+      format.html
+    end
   end
 end
 ```
 
 Email layout:
 ```html
-<!-- views/layouts/default.mjml -->
+<!-- views/layouts/default.html.mjml -->
 <mjml>
-	<mj-body>
-		<%= yield %>
-	</mj-body>
+  <mj-body>
+    <%= yield %>
+  </mj-body>
 </mjml>
 ```
 
 Email view:
 ```html
-<!-- views/my_mailer/foo_bar.mjml.erb -->
-<%= render partial: "to", formats: [:html], locals: { name: recipient.name } %>
+<!-- views/my_mailer/foo_bar.html.erb -->
+<%= render partial: "to" %>
 
 <mj-section>
-	<mj-column>
-		<mj-text>
-			Hello <%= recipient.name %>!
-		</mj-text>
-	</mj-column>
+  <mj-column>
+    <mj-text>
+      Something foo regarding bar!
+    </mj-text>
+  </mj-column>
 </mj-section>
 ```
 
 Email partial:
 ```html
-<!-- views/my_mailer/_to.mjml -->
+<!-- views/my_mailer/_to.html.erb -->
 <mj-section>
-	<mj-column>
-		<mj-text>
-			<%= name %>,
-		</mj-text>
-	</mj-column>
+  <mj-column>
+    <mj-text>
+      Hello <%= @recipient.name %>,
+    </mj-text>
+  </mj-column>
 </mj-section>
 ```
 
