@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'rails', '4.2.6'
+gem 'rails', '~> 5.2'
+gem 'byebug'
 
 group :development do
   # gem 'guard' # NOTE: this is necessary in newer versions

@@ -41,7 +41,15 @@ module Mjml
 
     def call(template)
       compiled_source = template_handler.call(template)
-      if template.formats.include?(:mjml)
+
+      # Per MJML v4 syntax documentation[0] valid/render'able document MUST start with <mjml> root tag
+      # If we get here and template source doesn't start with one it means
+      # that we are rendering partial named according to legacy naming convention (partials ending with '.mjml')
+      # Therefore we skip MJML processing and return raw compiled source. It will be processed
+      # by MJML library when top-level layout/template is rendered
+      #
+      # [0] - https://github.com/mjmlio/mjml/blob/master/doc/guide.md#mjml
+      if template.source =~ /<mjml>/
         "Mjml::Mjmltemplate.to_html(begin;#{compiled_source};end).html_safe"
       else
         compiled_source

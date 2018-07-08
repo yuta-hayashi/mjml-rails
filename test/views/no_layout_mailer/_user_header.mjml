@@ -1,0 +1,5 @@
+<mj-text>
+  <h1>
+    Welcome, <%= @recipient %>!
+  </h1>
+</mj-text>

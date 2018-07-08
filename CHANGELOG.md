@@ -1,3 +1,7 @@
+## 4.2.0
+
+* Aleksandrs Ļedovskis refactored MJML layout/template support to better match Rails standards.
+
 ## 4.1.0
 
 * Ryan Ahearn updated for 4.1.0 and improved Tempfile usage.
