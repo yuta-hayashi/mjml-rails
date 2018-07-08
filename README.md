@@ -86,9 +86,9 @@ Mjml.setup do |config|
 end
 ```
 
-### MJML v3.x & v4.0.x support
+### MJML v3.x & v4.x support
 
-Version 4.0.x of this gem brings support for MJML 4.0.x
+Version 4.x of this gem brings support for MJML 4.x
 
 Version 2.3.x and 2.4.x of this gem brings support for MJML 3.x
 
@@ -115,6 +115,8 @@ npm install -g mjml@3.3.5
 [Hugo Giraudel](https://twitter.com/hugogiraudel) wrote a post on [using MJML in Rails](http://dev.edenspiekermann.com/2016/06/02/using-mjml-in-rails/).
 
 ## Using Email Layouts
+
+*Note*: [Aleksandrs Ļedovskis](https://github.com/aleksandrs-ledovskis) kindly updated the gem for better Rails Email Layouts support - it should be a non-breaking change, but check the updated file naming below if you experience problems.
 
 Mailer:
 ```ruby
@@ -256,14 +258,15 @@ If you discover any bugs, feel free to create an issue on GitHub. Please add as 
 
 * Simon Loffler [github.com/sighmon](https://github.com/sighmon)
 * Steven Pickles [github.com/thatpixguy](https://github.com/thatpixguy)
+* [The Rails community](https://github.com/sighmon/mjml-rails/pulls?q=is%3Apr+is%3Aclosed). :-)
 
 ## Other similar gems
 
-* [srghma/mjml-premailer](https://github.com/srghma/mjml-premailer) - supports `/app/views/layouts`
+* [srghma/mjml-premailer](https://github.com/srghma/mjml-premailer)
 * [kolybasov/mjml-ruby/](https://github.com/kolybasov/mjml-ruby/)
 
 ## License
 
-MIT License. Copyright 2016 Simon Loffler. [sighmon.com](http://sighmon.com)
+MIT License. Copyright 2018 Simon Loffler. [sighmon.com](http://sighmon.com)
 
 Lovingly built on [github.com/plataformatec/markerb](https://github.com/plataformatec/markerb)
