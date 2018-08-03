@@ -4,6 +4,8 @@
 
 **MJML-Rails** allows you to render HTML e-mails from an [MJML](https://mjml.io) template.
 
+**Note:** If you’re using Haml/Slim layouts, please see [issue #34](https://github.com/sighmon/mjml-rails/issues/34) and weigh in on your opinion of how you’d like it solved.
+
 An example template might look like:
 
 ```erb
