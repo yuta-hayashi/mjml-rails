@@ -1,3 +1,7 @@
+## 4.2.1
+
+* Implemented Aleksandrs Ļedovskis' fix for Haml/Slim layouts.
+
 ## 4.2.0
 
 * Aleksandrs Ļedovskis refactored MJML layout/template support to better match Rails standards.

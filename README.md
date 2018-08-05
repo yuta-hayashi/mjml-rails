@@ -4,8 +4,6 @@
 
 **MJML-Rails** allows you to render HTML e-mails from an [MJML](https://mjml.io) template.
 
-**Note:** If you’re using Haml/Slim layouts, please see [issue #34](https://github.com/sighmon/mjml-rails/issues/34) and weigh in on your opinion of how you’d like it solved.
-
 An example template might look like:
 
 ```erb
@@ -78,6 +76,8 @@ Mjml.setup do |config|
   config.template_language = :erb # :erb (default), :slim, :haml, or any other you are using
 end
 ```
+
+**Note:** If you’re using Haml/Slim layouts, please don’t put `<mjml>` in comments in your partial. Read more: [#34](https://github.com/sighmon/mjml-rails/issues/34).
 
 If you'd like to see render errors:
 

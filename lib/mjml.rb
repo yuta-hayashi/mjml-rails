@@ -49,7 +49,7 @@ module Mjml
       # by MJML library when top-level layout/template is rendered
       #
       # [0] - https://github.com/mjmlio/mjml/blob/master/doc/guide.md#mjml
-      if template.source =~ /<mjml>/
+      if compiled_source =~ /<mjml>/
         "Mjml::Mjmltemplate.to_html(begin;#{compiled_source};end).html_safe"
       else
         compiled_source
