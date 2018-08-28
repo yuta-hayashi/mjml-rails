@@ -8,7 +8,7 @@ module Mjml
   mattr_accessor :template_language, :raise_render_exception, :mjml_binary_version_supported, :mjml_binary_error_string
 
   @@template_language = :erb
-  @@raise_render_exception = false
+  @@raise_render_exception = true
   @@mjml_binary_version_supported = "4.1."
   @@mjml_binary_error_string = "Couldn't find the MJML #{Mjml.mjml_binary_version_supported} binary.. have you run $ npm install mjml?"
 

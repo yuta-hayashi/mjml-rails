@@ -79,12 +79,12 @@ end
 
 **Note:** If you’re using Haml/Slim layouts, please don’t put `<mjml>` in comments in your partial. Read more: [#34](https://github.com/sighmon/mjml-rails/issues/34).
 
-If you'd like to see render errors:
+If you'd like ignore render errors silently:
 
 ```ruby
 Mjml.setup do |config|
-  # Default is `false` (errors suppressed), set to `true` to enable error raising
-  config.raise_render_exception = true
+  # Default is `true` (errors are raised), set to `false` to disable error raising
+  config.raise_render_exception = false
 end
 ```
 
