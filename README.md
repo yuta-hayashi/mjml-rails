@@ -23,7 +23,7 @@ An example template might look like:
 </mjml>
 ```
 
-And the partial `_info.mjml`:
+And the partial:
 
 ```erb
 <!-- ./app/views/user_mailer/_info.html.erb -->
