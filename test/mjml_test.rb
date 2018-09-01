@@ -27,6 +27,14 @@ class NoLayoutMailer < ActionMailer::Base
       format.mjml
     end
   end
+
+  def with_owa(recipient)
+    @recipient = recipient
+
+    mail(to: @recipient, from: "app@example.com") do |format|
+      format.mjml
+    end
+  end
 end
 
 class NotifierMailerTest < ActiveSupport::TestCase
@@ -50,6 +58,19 @@ end
 class NotifierMailerTest < ActiveSupport::TestCase
   test "old mjml-rails configuration style MJML template is rendered correctly" do
     email = NoLayoutMailer.inform_contact("user@example.com")
+
+    assert_equal "text/html", email.mime_type
+
+    refute email.body.match(%r{</?mj.+?>})
+    assert email.body.match(/<body>/)
+    assert email.body.match(/Welcome, user@example.com!/)
+    assert email.body.match(%r{<h2>We inform you about something</h2>})
+    assert email.body.match(%r{<a href="https://www.example.com">this link</a>})
+    refute email.body.match(/tracking-code-123/)
+  end
+
+  test "old mjml-rails MJML template with owa is rendered correctly" do
+    email = NoLayoutMailer.with_owa("user@example.com")
 
     assert_equal "text/html", email.mime_type
 

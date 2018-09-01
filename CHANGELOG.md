@@ -1,3 +1,7 @@
+## 4.2.2
+
+* Patrick Bougie fixed a bug where an expanded MJML root tag <mjml owa="desktop"> resulted in the message not rendering to HTML.
+
 ## 4.2.1
 
 * Implemented Aleksandrs Ļedovskis' fix for Haml/Slim layouts.
