@@ -9,5 +9,5 @@ notifications:
   email: true
 before_script:
   - nvm install 7
-  - npm install mjml@4.1.2
+  - npm install mjml
   - npm install promise
