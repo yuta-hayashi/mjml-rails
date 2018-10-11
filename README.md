@@ -79,12 +79,19 @@ end
 
 **Note:** If you’re using Haml/Slim layouts, please don’t put `<mjml>` in comments in your partial. Read more: [#34](https://github.com/sighmon/mjml-rails/issues/34).
 
-If you'd like to see render errors:
+If there are configurations you'd like change:
+- render errors: defaults to `false` (errors suppressed)
+- minify: defaults to `false` (not minified)
+- beautify: defaults to `true` (beautified)
 
 ```ruby
 Mjml.setup do |config|
-  # Default is `false` (errors suppressed), set to `true` to enable error raising
+  # set to `true` to enable error raising
   config.raise_render_exception = true
+
+  # optimize the size of your email
+  config.beautify = false
+  config.minify = true
 end
 ```
 
