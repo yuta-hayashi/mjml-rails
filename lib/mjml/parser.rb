@@ -22,7 +22,7 @@ module Mjml
         file.write(input)
         file # return tempfile from block so #unlink works later
       end
-      run in_tmp_file.path
+      run(in_tmp_file.path, Mjml.beautify, Mjml.minify)
     rescue
       raise if Mjml.raise_render_exception
       ""
@@ -33,9 +33,9 @@ module Mjml
     # Exec mjml command
     #
     # @return [String] The result as string
-    def run(in_tmp_file)
+    def run(in_tmp_file, beautify=true, minify=false)
       Tempfile.create(["out", ".html"]) do |out_tmp_file|
-        command = "#{mjml_bin} -r #{in_tmp_file} -o #{out_tmp_file.path}"
+        command = "#{mjml_bin} -r #{in_tmp_file} -o #{out_tmp_file.path} --config.beautify #{beautify} --config.minify #{minify}"
         _, _, stderr, _ = Open3.popen3(command)
         raise ParseError.new(stderr.read.chomp) unless stderr.eof?
         out_tmp_file.read

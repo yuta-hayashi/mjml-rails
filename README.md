@@ -74,24 +74,38 @@ If you're using ```:haml``` or any other Rails template language, create an init
 # config/initializers/mjml.rb
 Mjml.setup do |config|
   config.template_language = :erb # :erb (default), :slim, :haml, or any other you are using
-	# Default is `false` (errors suppressed), set to `true` to enable error raising
-  # config.raise_render_exception = true
-  # config.mjml_binary_version_supported = "4."
 end
-# If you set a different MJML binary version, uncomment next line
-# Mjml::BIN = Mjml.discover_mjml_bin
 ```
 
 **Note:** If you’re using Haml/Slim layouts, please don’t put `<mjml>` in comments in your partial. Read more: [#34](https://github.com/sighmon/mjml-rails/issues/34).
 
-If you'd like to see render errors:
+If there are configurations you'd like change:
+- render errors: defaults to `false` (errors suppressed)
+- minify: defaults to `false` (not minified)
+- beautify: defaults to `true` (beautified)
 
 ```ruby
 Mjml.setup do |config|
-  # Default is `false` (errors suppressed), set to `true` to enable error raising
+  # set to `true` to enable error raising
   config.raise_render_exception = true
+
+  # optimize the size of your email
+  config.beautify = false
+  config.minify = true
 end
 ```
+
+If you’d like to specify a different MJML binary to run other than `4.`:
+
+```ruby
+Mjml.setup do |config|
+  config.mjml_binary_version_supported = “3.3.5”
+end
+# If you set a different MJML binary version, you need to re-discover the binary
+Mjml::BIN = Mjml.discover_mjml_bin
+```
+
+**Note:** If you set a different MJML binary you’ll see warnings in your logs of `already initialized constant Mjml::BIN`. Read more: [#39](https://github.com/sighmon/mjml-rails/issues/39#issuecomment-429151908)
 
 ### MJML v3.x & v4.x support
 
