@@ -1,3 +1,7 @@
+## 4.2.4
+
+* Mandy Huang added config settings for MJML beautify and minify.
+
 ## 4.2.3
 
 * Patrick Bougie and Daniel suggested a fix to enable alternative binary support - see #39. Also updated for MJML 4.2.0
