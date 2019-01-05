@@ -209,8 +209,8 @@ class DeviseMailer < Devise::Mailer
       to: record.email,
       subject: "Custom subject"
     ) do |format|
-      format.mjml
       format.text
+      format.mjml
     end
   end
 end
