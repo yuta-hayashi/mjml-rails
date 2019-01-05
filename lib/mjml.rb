@@ -62,4 +62,14 @@ module Mjml
   def self.setup
     yield self if block_given?
   end
+
+  class << self
+    attr_writer :logger
+
+    def logger
+      @logger ||= Logger.new($stdout).tap do |log|
+        log.progname = self.name
+      end
+    end
+  end
 end

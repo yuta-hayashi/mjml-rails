@@ -4,6 +4,8 @@
 
 **MJML-Rails** allows you to render HTML e-mails from an [MJML](https://mjml.io) template.
 
+**Note**: As of MJML 4.3.0 you can no longer use `<mj-text>` directly inside an `<mj-body>`, wrap it in `<mj-section><mj-column>`.
+
 An example template might look like:
 
 ```erb
