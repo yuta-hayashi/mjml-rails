@@ -1,3 +1,11 @@
+## 4.2.4
+
+* Mandy Huang added config settings for MJML beautify and minify.
+
+## 4.2.3
+
+* Patrick Bougie and Daniel suggested a fix to enable alternative binary support - see #39. Also updated for MJML 4.2.0
+
 ## 4.2.2
 
 * Patrick Bougie fixed a bug where an expanded MJML root tag <mjml owa="desktop"> resulted in the message not rendering to HTML.

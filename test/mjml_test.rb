@@ -43,6 +43,11 @@ class NotifierMailerTest < ActiveSupport::TestCase
 
     assert_equal "multipart/alternative", email.mime_type
 
+    # To debug tests:
+    # Mjml.logger.info email.mime_type
+    # Mjml.logger.info email.to_s
+    # Mjml.logger.info email.html_part.body
+
     refute email.html_part.body.match(%r{</?mj.+?>})
     assert email.html_part.body.match(/<body>/)
     assert email.html_part.body.match(/Hello, user@example.com!/)

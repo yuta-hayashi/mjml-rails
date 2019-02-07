@@ -4,6 +4,8 @@
 
 **MJML-Rails** allows you to render HTML e-mails from an [MJML](https://mjml.io) template.
 
+**Note**: As of MJML 4.3.0 you can no longer use `<mj-text>` directly inside an `<mj-body>`, wrap it in `<mj-section><mj-column>`.
+
 An example template might look like:
 
 ```erb
@@ -79,14 +81,33 @@ end
 
 **Note:** If you’re using Haml/Slim layouts, please don’t put `<mjml>` in comments in your partial. Read more: [#34](https://github.com/sighmon/mjml-rails/issues/34).
 
-If you'd like ignore render errors silently:
+If there are configurations you'd like change:
+- render errors: defaults to `true` (errors raised)
+- minify: defaults to `false` (not minified)
+- beautify: defaults to `true` (beautified)
 
 ```ruby
 Mjml.setup do |config|
-  # Default is `true` (errors are raised), set to `false` to disable error raising
-  config.raise_render_exception = false
+  # set to `false` to ignore errors silently
+  config.raise_render_exception = true
+
+  # optimize the size of your email
+  config.beautify = false
+  config.minify = true
 end
 ```
+
+If you’d like to specify a different MJML binary to run other than `4.`:
+
+```ruby
+Mjml.setup do |config|
+  config.mjml_binary_version_supported = “3.3.5”
+end
+# If you set a different MJML binary version, you need to re-discover the binary
+Mjml::BIN = Mjml.discover_mjml_bin
+```
+
+**Note:** If you set a different MJML binary you’ll see warnings in your logs of `already initialized constant Mjml::BIN`. Read more: [#39](https://github.com/sighmon/mjml-rails/issues/39#issuecomment-429151908)
 
 ### MJML v3.x & v4.x support
 
@@ -188,8 +209,8 @@ class DeviseMailer < Devise::Mailer
       to: record.email,
       subject: "Custom subject"
     ) do |format|
-      format.mjml
       format.text
+      format.mjml
     end
   end
 end
