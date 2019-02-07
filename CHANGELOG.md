@@ -1,3 +1,7 @@
+## 4.2.5
+
+* Stephan Biastoch added rendering errors to true by default - see pull request #37.
+
 ## 4.2.4
 
 * Mandy Huang added config settings for MJML beautify and minify.
