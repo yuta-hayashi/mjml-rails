@@ -15,7 +15,7 @@ module Mjml
   @@minify = false
 
   def self.check_version(bin)
-    IO.popen("#{bin} --version") { |io| io.read.include?("mjml-core: #{Mjml.mjml_binary_version_supported}") }
+    IO.popen([bin, '--version']) { |io| io.read.include?("mjml-core: #{Mjml.mjml_binary_version_supported}") }
   rescue
     false
   end
