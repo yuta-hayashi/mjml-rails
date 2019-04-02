@@ -1,3 +1,4 @@
+require "rails/version"
 require "action_view"
 require "action_view/template"
 require "mjml/mjmltemplate"
