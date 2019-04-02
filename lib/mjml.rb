@@ -41,8 +41,16 @@ module Mjml
       @_template_handler ||= ActionView::Template.registered_template_handler(Mjml.template_language)
     end
 
-    def call(template)
-      compiled_source = template_handler.call(template)
+    # Optional second source parameter to make it work with Rails >= 6:
+    # Beginning with Rails 6 template handlers get the source of the template as the second
+    # parameter.
+    def call(template, source = nil)
+      compiled_source =
+        if Rails::VERSION::MAJOR >= 6
+          template_handler.call(template, source)
+        else
+          template_handler.call(template)
+        end
 
       # Per MJML v4 syntax documentation[0] valid/render'able document MUST start with <mjml> root tag
       # If we get here and template source doesn't start with one it means
