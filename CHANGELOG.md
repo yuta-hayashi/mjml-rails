@@ -1,3 +1,7 @@
+## 4.3.0
+
+* Paul Mucur added better path escaping on the IO.popen command. Markus Doits added Rails 6 support by adding the optional second source parameter to template handler calls.
+
 ## 4.2.5
 
 * Stephan Biastoch added rendering errors to true by default - see pull request #37.
