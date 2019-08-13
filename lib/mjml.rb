@@ -27,11 +27,22 @@ module Mjml
     return mjml_bin if check_version(mjml_bin)
 
     # Check for a local install of MJML binary
-    installer_path = (`npm bin` || `yarn bin`).chomp
+    installer_path = bin_path_from('npm') || bin_path_from('yarn')
+    unless installer_path
+      puts Mjml.mjml_binary_error_string
+      return nil
+    end
+
     mjml_bin = File.join(installer_path, 'mjml')
     return mjml_bin if check_version(mjml_bin)
 
     puts Mjml.mjml_binary_error_string
+    nil
+  end
+
+  def self.bin_path_from(package_manager)
+    `#{package_manager} bin`.chomp
+  rescue Errno::ENOENT # package manager is not installed
     nil
   end
 

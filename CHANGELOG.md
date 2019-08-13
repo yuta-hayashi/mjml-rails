@@ -1,3 +1,7 @@
+## Unreleased
+
+* Fix discovering mjml binary, when only yarn, but not npm is installed
+
 ## 4.3.0
 
 * Paul Mucur added better path escaping on the IO.popen command. Markus Doits added Rails 6 support by adding the optional second source parameter to template handler calls.
@@ -86,4 +90,3 @@
 * Supports MJML 1.x
 * Allows use of ERb in templates
 * Allows use of partials in templates
-
