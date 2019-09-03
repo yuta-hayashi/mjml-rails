@@ -1,6 +1,6 @@
-## Unreleased
+## 4.3.1
 
-* Fix discovering mjml binary, when only yarn, but not npm is installed
+* Jan Sandbrink fixed discovering mjml binary, when only yarn, but not npm is installed.
 
 ## 4.3.0
 
