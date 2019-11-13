@@ -34,7 +34,7 @@ And the partial:
 
 * Notice you can use ERB and partials inside the template.
 
-Your `user_mailer.rb` might look like this::
+Your `user_mailer.rb` might look like this:
 
 ```ruby
 # ./app/mailers/user_mailer.rb
@@ -101,7 +101,7 @@ If you’d like to specify a different MJML binary to run other than `4.`:
 
 ```ruby
 Mjml.setup do |config|
-  config.mjml_binary_version_supported = “3.3.5”
+  config.mjml_binary_version_supported = "3.3.5"
 end
 # If you set a different MJML binary version, you need to re-discover the binary
 Mjml::BIN = Mjml.discover_mjml_bin
@@ -251,7 +251,7 @@ Next you'll need to setup a `package.json` file in the root, something like this
     "test": "test"
   },
   "dependencies": {
-    "mjml": "^4.0.0",
+    "mjml": "^4.0.0"
   },
   "repository": {
     "type": "git",
