@@ -34,7 +34,7 @@ And the partial:
 
 * Notice you can use ERB and partials inside the template.
 
-Your `user_mailer.rb` might look like this::
+Your `user_mailer.rb` might look like this:
 
 ```ruby
 # ./app/mailers/user_mailer.rb
@@ -47,6 +47,10 @@ class UserMailer < ActionMailer::Base
   end
 end
 ```
+
+## Example application
+
+* [MJML with Rails 6](https://github.com/dyanagi/example_mjml_rails): Renders HTML emails with MJML layout, view, and partial.
 
 ## Installation
 
@@ -101,7 +105,7 @@ If you’d like to specify a different MJML binary to run other than `4.`:
 
 ```ruby
 Mjml.setup do |config|
-  config.mjml_binary_version_supported = “3.3.5”
+  config.mjml_binary_version_supported = "3.3.5"
 end
 # If you set a different MJML binary version, you need to re-discover the binary
 Mjml::BIN = Mjml.discover_mjml_bin
@@ -151,11 +155,13 @@ class MyMailer < ActionMailer::Base
     @recipient = user
 
     mail(to: user.email, from: "app@example.com") do |format|
-      format.html
+      format.html # This will look for "default.html.erb" and then "default.html.mjml"
     end
   end
 end
 ```
+
+Note: If `default.html.erb` exists, email will be rendered as ERB, and MJML tags will not be compiled.
 
 Email layout:
 ```html
@@ -169,7 +175,7 @@ Email layout:
 
 Email view:
 ```html
-<!-- views/my_mailer/foo_bar.html.erb -->
+<!-- views/my_mailer/foo_bar.html.mjml (or foo_bar.html.erb) -->
 <%= render partial: "to" %>
 
 <mj-section>
@@ -183,7 +189,7 @@ Email view:
 
 Email partial:
 ```html
-<!-- views/my_mailer/_to.html.erb -->
+<!-- views/my_mailer/_to.html.mjml (or _to.html.erb) -->
 <mj-section>
   <mj-column>
     <mj-text>
@@ -251,7 +257,7 @@ Next you'll need to setup a `package.json` file in the root, something like this
     "test": "test"
   },
   "dependencies": {
-    "mjml": "^4.0.0",
+    "mjml": "^4.0.0"
   },
   "repository": {
     "type": "git",
