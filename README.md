@@ -48,6 +48,10 @@ class UserMailer < ActionMailer::Base
 end
 ```
 
+## Example application
+
+* [MJML with Rails 6](https://github.com/dyanagi/example_mjml_rails): Renders HTML emails with MJML layout, view, and partial.
+
 ## Installation
 
 Add it to your Gemfile.
