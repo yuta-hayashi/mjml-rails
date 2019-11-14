@@ -151,11 +151,13 @@ class MyMailer < ActionMailer::Base
     @recipient = user
 
     mail(to: user.email, from: "app@example.com") do |format|
-      format.html
+      format.html # This will look for "default.html.erb" and then "default.html.mjml"
     end
   end
 end
 ```
+
+Note: If `default.html.erb` exists, email will be rendered as ERB, and MJML tags will not be compiled.
 
 Email layout:
 ```html
@@ -169,7 +171,7 @@ Email layout:
 
 Email view:
 ```html
-<!-- views/my_mailer/foo_bar.html.erb -->
+<!-- views/my_mailer/foo_bar.html.mjml (or foo_bar.html.erb) -->
 <%= render partial: "to" %>
 
 <mj-section>
@@ -183,7 +185,7 @@ Email view:
 
 Email partial:
 ```html
-<!-- views/my_mailer/_to.html.erb -->
+<!-- views/my_mailer/_to.html.mjml (or _to.html.erb) -->
 <mj-section>
   <mj-column>
     <mj-text>
