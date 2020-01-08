@@ -42,9 +42,8 @@ module Mjml
   end
 
   def self.bin_path_from(package_manager)
-    Open3.popen3("#{package_manager} bin") do |stdin, stdout, stderr, thread|
-      stdout.read.chomp
-    end
+    _, stdout, _, _ = Open3.popen3("#{package_manager} bin")
+   stdout.read.chomp
   rescue Errno::ENOENT # package manager is not installed
     nil
   end
