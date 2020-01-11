@@ -4,6 +4,7 @@ require "action_view/template"
 require "mjml/mjmltemplate"
 require "mjml/railtie"
 require "rubygems"
+require "open3"
 
 module Mjml
   mattr_accessor :template_language, :raise_render_exception, :mjml_binary_version_supported, :mjml_binary_error_string, :beautify, :minify
@@ -41,7 +42,8 @@ module Mjml
   end
 
   def self.bin_path_from(package_manager)
-    `#{package_manager} bin`.chomp
+    _, stdout, _, _ = Open3.popen3("#{package_manager} bin")
+   stdout.read.chomp
   rescue Errno::ENOENT # package manager is not installed
     nil
   end
