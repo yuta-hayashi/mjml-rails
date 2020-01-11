@@ -1,3 +1,7 @@
+## 4.3.2
+
+* adrianob fixed discovering the npm/yarn bin path using Open3 instead of back ticks.
+
 ## 4.3.1
 
 * Jan Sandbrink fixed discovering mjml binary, when only yarn, but not npm is installed.
