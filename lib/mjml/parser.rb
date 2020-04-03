@@ -22,7 +22,7 @@ module Mjml
         file.write(input)
         file # return tempfile from block so #unlink works later
       end
-      run(in_tmp_file.path, Mjml.beautify, Mjml.minify)
+      run(in_tmp_file.path, Mjml.beautify, Mjml.minify, Mjml.validation_level)
     rescue
       raise if Mjml.raise_render_exception
       ""
