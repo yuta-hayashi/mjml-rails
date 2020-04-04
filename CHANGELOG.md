@@ -1,3 +1,7 @@
+## 4.4.0
+
+* zeh235 added support for setting the MJML validationLevel.
+
 ## 4.3.2
 
 * adrianob fixed discovering the npm/yarn bin path using Open3 instead of back ticks.

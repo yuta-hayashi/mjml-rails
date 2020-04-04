@@ -89,8 +89,10 @@ If there are configurations you'd like change:
 - render errors: defaults to `true` (errors raised)
 - minify: defaults to `false` (not minified)
 - beautify: defaults to `true` (beautified)
+- validation_level: defaults to `soft` (MJML syntax validation)
 
 ```ruby
+# config/initializers/mjml.rb
 Mjml.setup do |config|
   # set to `false` to ignore errors silently
   config.raise_render_exception = true
@@ -98,12 +100,14 @@ Mjml.setup do |config|
   # optimize the size of your email
   config.beautify = false
   config.minify = true
+  config.validation_level = "strict"
 end
 ```
 
 If you’d like to specify a different MJML binary to run other than `4.`:
 
 ```ruby
+# config/initializers/mjml.rb
 Mjml.setup do |config|
   config.mjml_binary_version_supported = "3.3.5"
 end
