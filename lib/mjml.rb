@@ -7,7 +7,7 @@ require "rubygems"
 require "open3"
 
 module Mjml
-  mattr_accessor :template_language, :raise_render_exception, :mjml_binary_version_supported, :mjml_binary_error_string, :beautify, :minify
+  mattr_accessor :template_language, :raise_render_exception, :mjml_binary_version_supported, :mjml_binary_error_string, :beautify, :minify, :validation_level
 
   @@template_language = :erb
   @@raise_render_exception = true
@@ -15,6 +15,7 @@ module Mjml
   @@mjml_binary_error_string = "Couldn't find the MJML #{Mjml.mjml_binary_version_supported} binary.. have you run $ npm install mjml?"
   @@beautify = true
   @@minify = false
+  @@validation_level = "soft"
 
   def self.check_version(bin)
     IO.popen([bin, '--version']) { |io| io.read.include?("mjml-core: #{Mjml.mjml_binary_version_supported}") }

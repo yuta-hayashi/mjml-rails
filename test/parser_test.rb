@@ -38,20 +38,23 @@ describe Mjml::Parser do
       end
     end
 
-    describe 'can read beautify and minify configs' do
+    describe 'can read beautify, minify, and validation_level configs' do
       it 'use defaults if no config is set' do
-        expect(Mjml.beautify).equal?(true);
-        expect(Mjml.minify).equal?(false);
+        expect(Mjml.beautify).must_equal(true)
+        expect(Mjml.minify).must_equal(false)
+        expect(Mjml.validation_level).must_equal('soft')
       end
 
       it 'use setup config' do
         Mjml.setup do |config|
           config.beautify = false
           config.minify = true
+          config.validation_level = 'strict'
         end
 
-        expect(Mjml.beautify).equal?(false);
-        expect(Mjml.minify).equal?(true);
+        expect(Mjml.beautify).must_equal(false)
+        expect(Mjml.minify).must_equal(true)
+        expect(Mjml.validation_level).must_equal('strict')
       end
     end
   end
