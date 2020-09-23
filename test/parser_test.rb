@@ -55,6 +55,12 @@ describe Mjml::Parser do
         expect(Mjml.beautify).must_equal(false)
         expect(Mjml.minify).must_equal(true)
         expect(Mjml.validation_level).must_equal('strict')
+
+        Mjml.setup do |config|
+          config.beautify = true
+          config.minify = false
+          config.validation_level = 'soft'
+        end
       end
     end
   end
