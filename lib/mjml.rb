@@ -18,24 +18,32 @@ module Mjml
   @@validation_level = "soft"
 
   def self.check_version(bin)
-    IO.popen([bin, '--version']) { |io| io.read.include?("mjml-core: #{Mjml.mjml_binary_version_supported}") }
-  rescue
+    stdout, _, status = run_mjml('--version', mjml_bin: bin)
+    status.success? && stdout.include?("mjml-core: #{Mjml.mjml_binary_version_supported}")
+  rescue StandardError
     false
   end
 
+  def self.run_mjml(args, mjml_bin: nil)
+    mjml_bin ||= BIN
+
+    Open3.capture3("#{mjml_bin} #{args}")
+  end
+
   def self.discover_mjml_bin
-    # Check for a global install of MJML binary
-    mjml_bin = 'mjml'
+    # Check for local install of MJML with yarn
+    mjml_bin = 'yarn run mjml'
     return mjml_bin if check_version(mjml_bin)
 
-    # Check for a local install of MJML binary
-    installer_path = bin_path_from('npm') || bin_path_from('yarn')
-    unless installer_path
-      puts Mjml.mjml_binary_error_string
-      return nil
+    # Check for a local install of MJML binary with npm
+    installer_path = bin_path_from('npm')
+    if installer_path
+      mjml_bin = File.join(installer_path, 'mjml')
+      return mjml_bin if check_version(mjml_bin)
     end
 
-    mjml_bin = File.join(installer_path, 'mjml')
+    # Check for a global install of MJML binary
+    mjml_bin = 'mjml'
     return mjml_bin if check_version(mjml_bin)
 
     puts Mjml.mjml_binary_error_string
