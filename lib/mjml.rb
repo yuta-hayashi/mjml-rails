@@ -32,27 +32,33 @@ module Mjml
 
   def self.discover_mjml_bin
     # Check for local install of MJML with yarn
-    mjml_bin = 'yarn run mjml'
-    return mjml_bin if check_version(mjml_bin)
+    yarn_bin = `which yarn`.chomp
+    if yarn_bin
+      mjml_bin = "#{yarn_bin} run mjml"
+      return mjml_bin if check_version(mjml_bin)
+    end
 
-    # Check for a local install of MJML binary with npm
-    installer_path = bin_path_from('npm')
-    if installer_path
+    # Check for a local install of MJML with npm
+    npm_bin = `which npm`.chomp
+    if npm_bin && (installer_path = bin_path_from(npm_bin))
       mjml_bin = File.join(installer_path, 'mjml')
       return mjml_bin if check_version(mjml_bin)
     end
 
-    # Check for a global install of MJML binary
-    mjml_bin = 'mjml'
-    return mjml_bin if check_version(mjml_bin)
+    # Check for a global install of MJML
+    mjml_bin = `which mjml`.chomp
+    return mjml_bin if mjml_bin.present? && check_version(mjml_bin)
 
     puts Mjml.mjml_binary_error_string
     nil
   end
 
   def self.bin_path_from(package_manager)
-    _, stdout, _, _ = Open3.popen3("#{package_manager} bin")
-   stdout.read.chomp
+    stdout, _, status = Open3.capture3("#{package_manager} bin")
+
+    return unless status.success?
+
+    stdout.chomp
   rescue Errno::ENOENT # package manager is not installed
     nil
   end
