@@ -66,13 +66,19 @@ Run the following command to install it:
 bundle install
 ```
 
-Install the MJML parser (optional -g to install it globally):
+Add the MJML parser to your project with your favourite package manager:
 
 ```console
-npm install -g mjml
+# with npm
+npm install mjml
+
+# with yarn
+yarn add mjml
 ```
 
-Note that you'll need at least Node.js version 6 for MJML to function properly.
+MJML-Rails falls back to a global installation of MJML but it is strongly recommended to add MJML directly to your project.
+
+You'll need at least Node.js version 6 for MJML to function properly.
 
 If you're using ```:haml``` or any other Rails template language, create an initializer to set it up:
 
