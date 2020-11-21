@@ -21,7 +21,8 @@ describe Mjml::Parser do
         end
 
         it 'raises exception' do
-          -> { parser.render }.must_raise(custom_error_class, error.message)
+          err = expect { parser.render }.must_raise(custom_error_class)
+          expect(err.message).must_equal error.message
         end
       end
 
@@ -33,7 +34,7 @@ describe Mjml::Parser do
         end
 
         it 'returns empty string' do
-          parser.render.must_equal ''
+          expect(parser.render).must_equal ''
         end
       end
     end
@@ -68,8 +69,8 @@ describe Mjml::Parser do
   describe '#run' do
     describe 'when shell command failed' do
       it 'raises exception' do
-        err = _ { parser.run "/tmp/non_existent_file.mjml" }.must_raise(Mjml::Parser::ParseError)
-        err.message.must_include 'Command line error'
+        err = expect { parser.run "/tmp/non_existent_file.mjml" }.must_raise(Mjml::Parser::ParseError)
+        expect(err.message).must_include 'Command line error'
       end
     end
   end
