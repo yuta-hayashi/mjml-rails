@@ -33,14 +33,14 @@ module Mjml
   def self.discover_mjml_bin
     # Check for local install of MJML with yarn
     yarn_bin = `which yarn`.chomp
-    if yarn_bin
+    if yarn_bin.present?
       mjml_bin = "#{yarn_bin} run mjml"
       return mjml_bin if check_version(mjml_bin)
     end
 
     # Check for a local install of MJML with npm
     npm_bin = `which npm`.chomp
-    if npm_bin && (installer_path = bin_path_from(npm_bin))
+    if npm_bin.present? && (installer_path = bin_path_from(npm_bin)).present?
       mjml_bin = File.join(installer_path, 'mjml')
       return mjml_bin if check_version(mjml_bin)
     end
