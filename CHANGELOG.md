@@ -1,3 +1,7 @@
+## 4.4.1
+
+* doits refactored discovery of the MJML binary.
+
 ## 4.4.0
 
 * zeh235 added support for setting the MJML validationLevel.
@@ -8,7 +12,7 @@
 
 ## 4.3.1
 
-* Jan Sandbrink fixed discovering mjml binary, when only yarn, but not npm is installed.
+* Jan Sandbrink fixed discovering MJML binary, when only yarn, but not npm is installed.
 
 ## 4.3.0
 
