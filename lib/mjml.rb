@@ -18,33 +18,47 @@ module Mjml
   @@validation_level = "soft"
 
   def self.check_version(bin)
-    IO.popen([bin, '--version']) { |io| io.read.include?("mjml-core: #{Mjml.mjml_binary_version_supported}") }
-  rescue
+    stdout, _, status = run_mjml('--version', mjml_bin: bin)
+    status.success? && stdout.include?("mjml-core: #{Mjml.mjml_binary_version_supported}")
+  rescue StandardError
     false
   end
 
-  def self.discover_mjml_bin
-    # Check for a global install of MJML binary
-    mjml_bin = 'mjml'
-    return mjml_bin if check_version(mjml_bin)
+  def self.run_mjml(args, mjml_bin: nil)
+    mjml_bin ||= BIN
 
-    # Check for a local install of MJML binary
-    installer_path = bin_path_from('npm') || bin_path_from('yarn')
-    unless installer_path
-      puts Mjml.mjml_binary_error_string
-      return nil
+    Open3.capture3("#{mjml_bin} #{args}")
+  end
+
+  def self.discover_mjml_bin
+    # Check for local install of MJML with yarn
+    yarn_bin = `which yarn`.chomp
+    if yarn_bin.present?
+      mjml_bin = "#{yarn_bin} run mjml"
+      return mjml_bin if check_version(mjml_bin)
     end
 
-    mjml_bin = File.join(installer_path, 'mjml')
-    return mjml_bin if check_version(mjml_bin)
+    # Check for a local install of MJML with npm
+    npm_bin = `which npm`.chomp
+    if npm_bin.present? && (installer_path = bin_path_from(npm_bin)).present?
+      mjml_bin = File.join(installer_path, 'mjml')
+      return mjml_bin if check_version(mjml_bin)
+    end
+
+    # Check for a global install of MJML
+    mjml_bin = `which mjml`.chomp
+    return mjml_bin if mjml_bin.present? && check_version(mjml_bin)
 
     puts Mjml.mjml_binary_error_string
     nil
   end
 
   def self.bin_path_from(package_manager)
-    _, stdout, _, _ = Open3.popen3("#{package_manager} bin")
-   stdout.read.chomp
+    stdout, _, status = Open3.capture3("#{package_manager} bin")
+
+    return unless status.success?
+
+    stdout.chomp
   rescue Errno::ENOENT # package manager is not installed
     nil
   end

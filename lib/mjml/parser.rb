@@ -35,9 +35,9 @@ module Mjml
     # @return [String] The result as string
     def run(in_tmp_file, beautify=true, minify=false, validation_level="soft")
       Tempfile.create(["out", ".html"]) do |out_tmp_file|
-        command = "#{mjml_bin} -r #{in_tmp_file} -o #{out_tmp_file.path} --config.beautify #{beautify} --config.minify #{minify} --config.validationLevel #{validation_level}"
-        _, _, stderr, _ = Open3.popen3(command)
-        raise ParseError.new(stderr.read.chomp) unless stderr.eof?
+        command = "-r #{in_tmp_file} -o #{out_tmp_file.path} --config.beautify #{beautify} --config.minify #{minify} --config.validationLevel #{validation_level}"
+        _, stderr, status = Mjml.run_mjml(command)
+        raise ParseError.new(stderr.chomp) unless status.success?
         out_tmp_file.read
       end
     end
