@@ -87,3 +87,30 @@ class NotifierMailerTest < ActiveSupport::TestCase
     refute email.body.match(/tracking-code-123/)
   end
 end
+
+describe Mjml do
+  describe '#valid_mjml_binary' do
+    before do
+      Mjml.mjml_binary = nil
+      Mjml.valid_mjml_binary = nil
+    end
+
+    after do
+      Mjml.mjml_binary = nil
+      Mjml.valid_mjml_binary = nil
+    end
+
+    it 'can be set to a custom value with mjml_binary if version is correct' do
+      Mjml.mjml_binary = 'some custom value'
+      Mjml.stub :check_version, true do
+        expect(Mjml.valid_mjml_binary).must_equal 'some custom value'
+      end
+    end
+
+    it 'raises an error if mjml_binary is invalid' do
+      Mjml.mjml_binary = 'some custom value'
+      err = expect { Mjml.valid_mjml_binary }.must_raise(StandardError)
+      expect(err.message).must_match(/MJML\.mjml_binary is set to 'some custom value' but MJML-Rails could not validate that it is a valid MJML binary/)
+    end
+  end
+end
