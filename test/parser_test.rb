@@ -33,6 +33,12 @@ describe Mjml::Parser do
           end
         end
 
+        after do
+          Mjml.setup do |config|
+            config.raise_render_exception = true
+          end
+        end
+
         it 'returns empty string' do
           expect(parser.render).must_equal ''
         end
