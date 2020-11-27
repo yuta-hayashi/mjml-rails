@@ -10,7 +10,10 @@ jobs:
         package_manager:
           - npm
           - yarn
-    name: Test with ${{ matrix.package_manager }}
+        rails_version:
+          - "~> 6.0"
+          - "~> 5.2"
+    name: Test with ${{ matrix.package_manager }} on Rails ${{ matrix.rails_version }}
 
     steps:
       - uses: actions/checkout@v2
@@ -23,6 +26,9 @@ jobs:
         with:
           node-version: "14"
       - name: Install rails dependencies
+        env:
+          BUNDLE_GEMFILE: Gemfile.ci
+          RAILS_VERSION: ${{ matrix.rails_version }}
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
@@ -33,4 +39,7 @@ jobs:
         if: ${{ matrix.package_manager == 'yarn' }}
         run: yarn add mjml
       - name: Run tests
+        env:
+          BUNDLE_GEMFILE: Gemfile.ci
+          RAILS_VERSION: ${{ matrix.rails_version }}
         run: rake
