@@ -31,24 +31,24 @@ describe Mjml::Parser do
       it 'uses defaults if no config is set' do
         expect(Mjml.beautify).must_equal(true)
         expect(Mjml.minify).must_equal(false)
-        expect(Mjml.validation_level).must_equal('soft')
+        expect(Mjml.validation_level).must_equal('strict')
       end
 
       it 'uses setup config' do
         Mjml.setup do |config|
           config.beautify = false
           config.minify = true
-          config.validation_level = 'strict'
+          config.validation_level = 'soft'
         end
 
         expect(Mjml.beautify).must_equal(false)
         expect(Mjml.minify).must_equal(true)
-        expect(Mjml.validation_level).must_equal('strict')
+        expect(Mjml.validation_level).must_equal('soft')
 
         Mjml.setup do |config|
           config.beautify = true
           config.minify = false
-          config.validation_level = 'soft'
+          config.validation_level = 'strict'
         end
       end
     end
