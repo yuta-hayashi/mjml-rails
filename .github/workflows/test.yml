@@ -13,14 +13,18 @@ jobs:
         rails_version:
           - "~> 6.0"
           - "~> 5.2"
-    name: Test with ${{ matrix.package_manager }} on Rails ${{ matrix.rails_version }}
+        ruby_version:
+          - "2.5"
+          - "2.6"
+          - "2.7"
+    name: ${{ matrix.package_manager }}, Rails ${{ matrix.rails_version }}, Ruby ${{ matrix.ruby_version }}
 
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: "2.7"
+          ruby-version: ${{ matrix.ruby_version }}
       - name: Set up Node
         uses: actions/setup-node@v2.1.2
         with:
