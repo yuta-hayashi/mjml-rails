@@ -1,0 +1,36 @@
+---
+name: test
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package_manager:
+          - npm
+          - yarn
+    name: Test with ${{ matrix.package_manager }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: "2.7"
+      - name: Set up Node
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: "14"
+      - name: Install rails dependencies
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+      - name: Install mjml with npm
+        if: ${{ matrix.package_manager == 'npm' }}
+        run: npm add mjml
+      - name: Install mjml with yarn
+        if: ${{ matrix.package_manager == 'yarn' }}
+        run: yarn add mjml
+      - name: Run tests
+        run: rake
