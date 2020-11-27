@@ -51,6 +51,12 @@ module Mjml
   end
 
   def self.check_for_custom_mjml_binary
+    if const_defined?('BIN') && Mjml::BIN.present?
+      logger.warn('Setting `Mjml::BIN` is deprecated and will be removed in a future version! Please use `Mjml.mjml_binary=` instead.')
+      self.mjml_binary = Mjml::BIN
+      remove_const 'BIN'
+    end
+
     return unless mjml_binary.present?
 
     return mjml_binary if check_version(mjml_binary)
@@ -87,6 +93,10 @@ module Mjml
     stdout.chomp
   rescue Errno::ENOENT # package manager is not installed
     nil
+  end
+
+  def self.discover_mjml_bin
+    logger.warn('`Mjml.discover_mjml_bin` is deprecated and has no effect anymore! Please use `Mjml.mjml_binary=` to set a custom MJML binary.')
   end
 
   class Handler
