@@ -15,8 +15,9 @@ module Mjml
     :mjml_binary_version_supported,
     :raise_render_exception,
     :template_language,
-    :valid_mjml_binary,
     :validation_level
+
+  mattr_writer :valid_mjml_binary
 
   @@template_language = :erb
   @@raise_render_exception = true
