@@ -1,3 +1,7 @@
+## 4.4.2
+
+* Implement denny's fix to detect MJML template errors.
+
 ## 4.4.1
 
 * doits refactored discovery of the MJML binary.
