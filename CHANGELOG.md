@@ -1,3 +1,7 @@
+## 4.6.0
+
+* doits added custom MJML binary location configuration via mjml_binary setting.
+
 ## 4.5.0
 
 * **Note**: default validation level is now *strict*.
