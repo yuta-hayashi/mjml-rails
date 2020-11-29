@@ -1,3 +1,9 @@
+## 4.5.0
+
+* **Note**: default validation level is now *strict*.
+* doits fixed MJML-Rails validation level to match MJML validation.
+* haffla fixed the post-install message.
+
 ## 4.4.2
 
 * Implement denny's fix to detect MJML template errors.

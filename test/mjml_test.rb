@@ -13,6 +13,15 @@ class NotifierMailer < ActionMailer::Base
       format.html
     end
   end
+
+  def invalid_template(recipient)
+    @recipient = recipient
+
+    mail(to: @recipient, from: "app@example.com") do |format|
+      format.html
+      format.text
+    end
+  end
 end
 
 class NoLayoutMailer < ActionMailer::Base
@@ -57,6 +66,22 @@ class NotifierMailerTest < ActiveSupport::TestCase
 
     assert email.text_part.body.match(/We inform you about something/)
     assert email.text_part.body.match(%r{Please visit https://www.example.com})
+  end
+
+  test "Invalid template raises error with validation level strict" do
+    with_settings(validation_level: 'strict') do
+      email = NotifierMailer.invalid_template("user@example.com")
+      assert_raise(ActionView::Template::Error) { email.html_part.body.to_s }
+    end
+  end
+
+  test "Invalid template gets compiled with validation level soft" do
+    with_settings(validation_level: 'soft') do
+      email = NotifierMailer.invalid_template("user@example.com")
+      assert email.text_part.body.match(/This is valid/)
+      assert email.html_part.body.match(/This is valid/)
+      refute email.html_part.body.match(/This is invalid/)
+    end
   end
 end
 
