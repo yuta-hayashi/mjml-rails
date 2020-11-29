@@ -1,10 +1,10 @@
-require "rails/version"
-require "action_view"
-require "action_view/template"
-require "mjml/mjmltemplate"
-require "mjml/railtie"
 require "rubygems"
 require "open3"
+
+require "mjml/handler"
+require "mjml/parser"
+
+require "mjml/railtie" if defined?(Rails)
 
 module Mjml
   mattr_accessor \
@@ -97,37 +97,6 @@ module Mjml
 
   def self.discover_mjml_bin
     logger.warn('`Mjml.discover_mjml_bin` is deprecated and has no effect anymore! Please use `Mjml.mjml_binary=` to set a custom MJML binary.')
-  end
-
-  class Handler
-    def template_handler
-      @_template_handler ||= ActionView::Template.registered_template_handler(Mjml.template_language)
-    end
-
-    # Optional second source parameter to make it work with Rails >= 6:
-    # Beginning with Rails 6 template handlers get the source of the template as the second
-    # parameter.
-    def call(template, source = nil)
-      compiled_source =
-        if Rails::VERSION::MAJOR >= 6
-          template_handler.call(template, source)
-        else
-          template_handler.call(template)
-        end
-
-      # Per MJML v4 syntax documentation[0] valid/render'able document MUST start with <mjml> root tag
-      # If we get here and template source doesn't start with one it means
-      # that we are rendering partial named according to legacy naming convention (partials ending with '.mjml')
-      # Therefore we skip MJML processing and return raw compiled source. It will be processed
-      # by MJML library when top-level layout/template is rendered
-      #
-      # [0] - https://github.com/mjmlio/mjml/blob/master/doc/guide.md#mjml
-      if compiled_source =~ /<mjml(.+)?>/i
-        "Mjml::Mjmltemplate.to_html(begin;#{compiled_source};end).html_safe"
-      else
-        compiled_source
-      end
-    end
   end
 
   def self.setup
