@@ -1,5 +1,3 @@
-require 'open3'
-
 module Mjml
   class Parser
     class ParseError < StandardError; end
