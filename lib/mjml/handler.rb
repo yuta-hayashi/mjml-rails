@@ -26,7 +26,7 @@ module Mjml
       # by MJML library when top-level layout/template is rendered
       #
       # [0] - https://github.com/mjmlio/mjml/blob/master/doc/guide.md#mjml
-      if compiled_source =~ /<mjml(.+)?>/i
+      if compiled_source =~ /<mjml.*?>/i
         "Mjml::Parser.new(begin;#{compiled_source};end).render.html_safe"
       else
         compiled_source
