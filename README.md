@@ -2,7 +2,7 @@
 
 [![Build Status](https://github.com/sighmon/mjml-rails/workflows/test/badge.svg?branch=master)](https://github.com/sighmon/mjml-rails/actions?query=workflow%3Atest+branch%3Amaster) [![Gem Version](https://badge.fury.io/rb/mjml-rails.svg)](https://badge.fury.io/rb/mjml-rails)
 
-**MJML-Rails** allows you to render HTML e-mails from an [MJML](https://mjml.io) template.
+**MJML-Rails** allows you to render HTML emails from an [MJML](https://mjml.io) template.
 
 **Note**: As of MJML 4.3.0 you can no longer use `<mj-text>` directly inside an `<mj-body>`, wrap it in `<mj-section><mj-column>`.
 
@@ -80,52 +80,61 @@ MJML-Rails falls back to a global installation of MJML but it is strongly recomm
 
 You'll need at least Node.js version 6 for MJML to function properly.
 
-If you're using ```:haml``` or any other Rails template language, create an initializer to set it up:
+## Configuration
+
+MJML-Rails has the following settings with defaults:
+
+- `template_language: :erb`
+
+   ERB can be used inside MJML templates by default. Possible values are all template languages that you have installed, e.g. `:haml` or `:slim`.
+
+   **Note:** If you’re using Haml/Slim layouts, please don’t put `<mjml>` in comments in your partial. Read more at [#34](https://github.com/sighmon/mjml-rails/issues/34).
+
+- `raise_render_exception: true`
+
+   Exceptions will be raised and passed to your application by default.
+
+   Beware that setting it to `false` leads to an empty html email when an exception is raised, so only set this to `false` if you do not rely on html (e.g. you have a text fallback for your emails).
+
+- `minify: false`
+
+- `beautify: true`
+
+- `validation_level: "strict"`
+
+   MJML-Rails will raise an exception on any template error by default.
+
+   If set to `soft`, MJML will render invalid templates and ignore invalid parts. This means in case of an invalid template those invalid parts will be missing from the output.
+
+   See [MJML validation documentation](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml) for all possible values.
+
+- `mjml_binary: nil`
+
+   This can be used to specify the path to a custom MJML binary if it is not detected automatically (shouldn't be needed).
+
+- `mjml_binary_version_support: "4."`
+
+   MJML-Rails checks the version of the MJML binary and fails if it does not start with this version, e.g. if an old version is installed by accident.
+
 
 ```ruby
 # config/initializers/mjml.rb
 Mjml.setup do |config|
-  config.template_language = :erb # :erb (default), :slim, :haml, or any other you are using
-end
-```
+  # Use :haml as a template language
+  config.template_language = :haml
 
-**Note:** If you’re using Haml/Slim layouts, please don’t put `<mjml>` in comments in your partial. Read more: [#34](https://github.com/sighmon/mjml-rails/issues/34).
-
-If there are configurations you'd like change:
-- render errors: defaults to `true` (errors raised)
-- minify: defaults to `false` (not minified)
-- beautify: defaults to `true` (beautified)
-- validation_level: defaults to `strict` (abort on any template error, see [MJML validation documentation](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml) for possible values)
-
-```ruby
-# config/initializers/mjml.rb
-Mjml.setup do |config|
-  # ignore errors silently
+  # Ignore errors silently
   config.raise_render_exception = false
 
-  # optimize the size of your email
+  # Optimize the size of your emails
   config.beautify = false
   config.minify = true
 
-  # render illformed MJML templates, not recommended
+  # Render MJML templates with errors
   config.validation_level = "soft"
-end
-```
 
-You can optionally provide a custom MJML binary if MJML-Rails cannot find it:
-
-```ruby
-# config/initializers/mjml.rb
-Mjml.setup do |config|
+  # Use custom MJML binary with custom version
   config.mjml_binary = "/path/to/custom/mjml"
-end
-```
-
-If you’d like to specify a different MJML version, set it like this:
-
-```ruby
-# config/initializers/mjml.rb
-Mjml.setup do |config|
   config.mjml_binary_version_supported = "3.3.5"
 end
 ```
