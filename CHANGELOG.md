@@ -1,3 +1,7 @@
+## 4.6.1
+
+* doits simplified the MJML Handler class and regex, so rendering should be faster.
+
 ## 4.6.0
 
 * doits added custom MJML binary location configuration via mjml_binary setting.
