@@ -10,6 +10,7 @@ require "rails/railtie"
 require "rails/generators"
 require "rails/generators/test_case"
 require 'mocha/minitest'
+require 'byebug'
 
 # require "minitest/reporters"
 # Minitest::Reporters.use!
