@@ -58,7 +58,7 @@ class NotifierMailerTest < ActiveSupport::TestCase
     # Mjml.logger.info email.html_part.body
 
     refute email.html_part.body.match(%r{</?mj.+?>})
-    assert email.html_part.body.match(/<body>/)
+    assert email.html_part.body.match(/<body/)
     assert email.html_part.body.match(/Hello, user@example.com!/)
     assert email.html_part.body.match(%r{<h2>We inform you about something</h2>})
     assert email.html_part.body.match(%r{<a href="https://www.example.com">this link</a>})
@@ -92,7 +92,7 @@ class NotifierMailerTest < ActiveSupport::TestCase
     assert_equal "text/html", email.mime_type
 
     refute email.body.match(%r{</?mj.+?>})
-    assert email.body.match(/<body>/)
+    assert email.body.match(/<body/)
     assert email.body.match(/Welcome, user@example.com!/)
     assert email.body.match(%r{<h2>We inform you about something</h2>})
     assert email.body.match(%r{<a href="https://www.example.com">this link</a>})
@@ -105,7 +105,7 @@ class NotifierMailerTest < ActiveSupport::TestCase
     assert_equal "text/html", email.mime_type
 
     refute email.body.match(%r{</?mj.+?>})
-    assert email.body.match(/<body>/)
+    assert email.body.match(/<body/)
     assert email.body.match(/Welcome, user@example.com!/)
     assert email.body.match(%r{<h2>We inform you about something</h2>})
     assert email.body.match(%r{<a href="https://www.example.com">this link</a>})
