@@ -18,7 +18,7 @@ An example template might look like:
     <mj-section>
       <mj-column>
         <mj-text>Hello World</mj-text>
-        <%= render partial: "info" %>
+        <%= render partial: "info", formats: [:html] %>
       </mj-column>
     </mj-section>
   </mj-body>
