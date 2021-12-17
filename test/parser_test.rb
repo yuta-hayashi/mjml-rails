@@ -7,7 +7,7 @@ describe Mjml::Parser do
   let(:parser) { Mjml::Parser.new(input) }
 
   describe '#render' do
-    describe 'when execption is raised' do
+    describe 'when exception is raised' do
       let(:custom_error_class) { Class.new(StandardError) }
       let(:error) { custom_error_class.new('custom error') }
 
@@ -25,6 +25,14 @@ describe Mjml::Parser do
       it 'returns empty string with exception raising disabled' do
         with_settings(raise_render_exception: false) do
           expect(parser.render).must_equal ''
+        end
+      end
+
+      it 'raises unshadowed exception in case on an `Tempfile` error' do
+        my_tempfile_error_class = Class.new StandardError
+        with_settings(raise_render_exception: true) do
+          Tempfile.stubs(:open).raises(my_tempfile_error_class)
+          expect { parser.render }.must_raise(my_tempfile_error_class)
         end
       end
     end
