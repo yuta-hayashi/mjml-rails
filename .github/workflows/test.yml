@@ -45,6 +45,7 @@ jobs:
         run: yarn add mjml
       - name: Run tests
         env:
-          BUNDLE_GEMFILE: Gemfile.ci
           RAILS_VERSION: ${{ matrix.rails_version }}
         run: rake
+      - name: Run RuboCop
+        run: bundle exec rubocop

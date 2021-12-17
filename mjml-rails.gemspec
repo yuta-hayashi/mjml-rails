@@ -25,7 +25,7 @@ Gem::Specification.new do |s| # rubocop:disable Gemspec/RequireMFA
 
   s.add_development_dependency 'byebug'
   s.add_development_dependency 'mocha', '1.4.0'
-  s.add_development_dependency 'rails', '~> 6.0'
+  s.add_development_dependency 'rails'
   s.add_development_dependency 'rubocop', '~> 1.23.0'
   s.add_development_dependency 'rubocop-performance', '~> 1.12.0'
   s.add_development_dependency 'rubocop-rails', '~> 2.12.4'
