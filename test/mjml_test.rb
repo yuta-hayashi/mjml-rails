@@ -74,6 +74,9 @@ class NotifierMailerTest < ActiveSupport::TestCase
   end
 
   test 'Invalid template gets compiled with validation level soft' do
+    # suppress warning of MJML binary
+    Mjml.logger.stubs(:warn)
+
     with_settings(validation_level: 'soft') do
       email = NotifierMailer.invalid_template('user@example.com')
       assert email.text_part.body.include?('This is valid')
@@ -138,7 +141,8 @@ describe Mjml do
     end
 
     it 'honors old Mjml::BIN way of setting custom binary' do
-      Mjml::BIN = 'set by old way'
+      silence_warnings { Mjml::BIN = 'set by old way' }
+      Mjml.logger.expects(:warn).with(regexp_matches(/Setting `Mjml::BIN` is deprecated/))
       err = expect { Mjml.valid_mjml_binary }.must_raise(StandardError)
       assert(err.message.start_with?("MJML.mjml_binary is set to 'set by old way' " \
                                      'but MJML-Rails could not validate that it is a valid MJML binary'))

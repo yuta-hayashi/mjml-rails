@@ -17,3 +17,6 @@ Rails/Output:
   Enabled: false
 Style/Documentation:
   Enabled: false
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'test/**/views/**/*.ruby'

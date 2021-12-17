@@ -36,3 +36,10 @@ def with_settings(settings)
 ensure
   original_settings.each { |key, value| Mjml.public_send("#{key}=", value) }
 end
+
+# Suppress all ruby warnings of the mail gem, see:
+# * https://github.com/mikel/mail/issues/1424
+# * https://github.com/mikel/mail/issues/1384
+# * https://github.com/mikel/mail/pull/1162
+require 'warning'
+Warning.ignore(//, %r{.*gems/mail.*/lib/mail/})
