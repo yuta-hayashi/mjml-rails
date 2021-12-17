@@ -21,14 +21,14 @@ module Mjml
 
   mattr_writer :valid_mjml_binary
 
-  @@template_language = :erb
-  @@raise_render_exception = true
-  @@mjml_binary_version_supported = '4.'
-  @@mjml_binary_error_string = "Couldn't find the MJML #{Mjml.mjml_binary_version_supported} binary.." \
-                               ' have you run $ npm install mjml?'
-  @@beautify = true
-  @@minify = false
-  @@validation_level = 'strict'
+  self.template_language = :erb
+  self.raise_render_exception = true
+  self.mjml_binary_version_supported = '4.'
+  self.mjml_binary_error_string = "Couldn't find the MJML #{Mjml.mjml_binary_version_supported} binary.." \
+                                  ' have you run $ npm install mjml?'
+  self.beautify = true
+  self.minify = false
+  self.validation_level = 'strict'
 
   def self.check_version(bin)
     stdout, _, status = run_mjml('--version', mjml_bin: bin)
@@ -42,11 +42,11 @@ module Mjml
   end
 
   def self.valid_mjml_binary
-    @@valid_mjml_binary ||=
-      check_for_custom_mjml_binary ||
-      check_for_yarn_mjml_binary ||
-      check_for_npm_mjml_binary ||
-      check_for_global_mjml_binary
+    self.valid_mjml_binary = @@valid_mjml_binary ||
+                             check_for_custom_mjml_binary ||
+                             check_for_yarn_mjml_binary ||
+                             check_for_npm_mjml_binary ||
+                             check_for_global_mjml_binary
 
     return @@valid_mjml_binary if @@valid_mjml_binary
 

@@ -30,18 +30,9 @@ ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
 
 def with_settings(settings)
-  original_settings =
-    settings.each_with_object({}) do |(key, _), agg|
-      agg[key] = Mjml.public_send(key)
-    end
-
-  settings.each do |key, value|
-    Mjml.public_send("#{key}=", value)
-  end
-
+  original_settings = settings.each_with_object({}) { |(key, _), agg| agg[key] = Mjml.public_send(key) }
+  settings.each { |key, value| Mjml.public_send("#{key}=", value) }
   yield
 ensure
-  original_settings.each do |key, value|
-    Mjml.public_send("#{key}=", value)
-  end
+  original_settings.each { |key, value| Mjml.public_send("#{key}=", value) }
 end

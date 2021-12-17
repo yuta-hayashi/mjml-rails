@@ -133,13 +133,15 @@ describe Mjml do
     it 'raises an error if mjml_binary is invalid' do
       Mjml.mjml_binary = 'some custom value'
       err = expect { Mjml.valid_mjml_binary }.must_raise(StandardError)
-      expect(err.message).must_match(/MJML\.mjml_binary is set to 'some custom value' but MJML-Rails could not validate that it is a valid MJML binary/)
+      assert(err.message.start_with?("MJML.mjml_binary is set to 'some custom value' " \
+                                     'but MJML-Rails could not validate that it is a valid MJML binary'))
     end
 
     it 'honors old Mjml::BIN way of setting custom binary' do
       Mjml::BIN = 'set by old way'
       err = expect { Mjml.valid_mjml_binary }.must_raise(StandardError)
-      expect(err.message).must_match(/MJML\.mjml_binary is set to 'set by old way' but MJML-Rails could not validate that it is a valid MJML binary/)
+      assert(err.message.start_with?("MJML.mjml_binary is set to 'set by old way' " \
+                                     'but MJML-Rails could not validate that it is a valid MJML binary'))
     end
 
     it 'ignores empty Mjml::BIN' do
@@ -147,7 +149,8 @@ describe Mjml do
       Mjml.mjml_binary = 'set by mjml_binary'
 
       err = expect { Mjml.valid_mjml_binary }.must_raise(StandardError)
-      expect(err.message).must_match(/MJML\.mjml_binary is set to 'set by mjml_binary' but MJML-Rails could not validate that it is a valid MJML binary/)
+      assert(err.message.start_with?("MJML.mjml_binary is set to 'set by mjml_binary' " \
+                                     'but MJML-Rails could not validate that it is a valid MJML binary'))
     end
   end
 end
