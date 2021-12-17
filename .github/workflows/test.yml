@@ -33,7 +33,6 @@ jobs:
           node-version: "14"
       - name: Install rails dependencies
         env:
-          BUNDLE_GEMFILE: Gemfile.ci
           RAILS_VERSION: ${{ matrix.rails_version }}
         run: |
           gem install bundler
