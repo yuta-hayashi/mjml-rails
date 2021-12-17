@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 gemspec
 
-gem 'rails', ENV['RAILS_VERSION']
 gem 'byebug'
+gem 'rails', ENV['RAILS_VERSION']
 
 group :development do
   # gem 'guard' # NOTE: this is necessary in newer versions

@@ -1,0 +1,19 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+AllCops:
+  TargetRubyVersion: 2.5
+  DisplayCopNames: true
+  NewCops: enable
+
+
+Metrics/BlockLength:
+  IgnoredMethods:
+    - describe
+    - guard
+Rails/ApplicationMailer:
+  Enabled: false
+Rails/Output:
+  Enabled: false
+Style/Documentation:
+  Enabled: false

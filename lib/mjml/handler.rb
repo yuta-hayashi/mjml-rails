@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'action_view'
 require 'action_view/template'
 require 'rails/version'
@@ -26,7 +28,7 @@ module Mjml
       # by MJML library when top-level layout/template is rendered
       #
       # [0] - https://github.com/mjmlio/mjml/blob/master/doc/components_1.md#mjml
-      if compiled_source =~ /<mjml.*?>/i
+      if /<mjml.*?>/i.match?(compiled_source)
         "Mjml::Parser.new(begin;#{compiled_source};end).render.html_safe"
       else
         compiled_source

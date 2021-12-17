@@ -1,14 +1,16 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class NotifierMailer < ActionMailer::Base
-  self.view_paths = File.expand_path("../views", __FILE__)
+  self.view_paths = File.expand_path('views', __dir__)
 
-  layout "default"
+  layout 'default'
 
   def inform_contact(recipient)
     @recipient = recipient
 
-    mail(to: @recipient, from: "app@example.com") do |format|
+    mail(to: @recipient, from: 'app@example.com') do |format|
       format.text
       format.html
     end
@@ -17,7 +19,7 @@ class NotifierMailer < ActionMailer::Base
   def invalid_template(recipient)
     @recipient = recipient
 
-    mail(to: @recipient, from: "app@example.com") do |format|
+    mail(to: @recipient, from: 'app@example.com') do |format|
       format.html
       format.text
     end
@@ -25,91 +27,87 @@ class NotifierMailer < ActionMailer::Base
 end
 
 class NoLayoutMailer < ActionMailer::Base
-  self.view_paths = File.expand_path("../views", __FILE__)
+  self.view_paths = File.expand_path('views', __dir__)
 
   layout nil
 
   def inform_contact(recipient)
     @recipient = recipient
 
-    mail(to: @recipient, from: "app@example.com") do |format|
-      format.mjml
-    end
+    mail(to: @recipient, from: 'app@example.com', &:mjml)
   end
 
   def with_owa(recipient)
     @recipient = recipient
 
-    mail(to: @recipient, from: "app@example.com") do |format|
-      format.mjml
-    end
+    mail(to: @recipient, from: 'app@example.com', &:mjml)
   end
 end
 
 class NotifierMailerTest < ActiveSupport::TestCase
-  test "MJML layout based multipart email is generated correctly" do
-    email = NotifierMailer.inform_contact("user@example.com")
+  test 'MJML layout based multipart email is generated correctly' do
+    email = NotifierMailer.inform_contact('user@example.com')
 
-    assert_equal "multipart/alternative", email.mime_type
+    assert_equal 'multipart/alternative', email.mime_type
 
     # To debug tests:
     # Mjml.logger.info email.mime_type
     # Mjml.logger.info email.to_s
     # Mjml.logger.info email.html_part.body
 
-    refute email.html_part.body.match(%r{</?mj.+?>})
-    assert email.html_part.body.match(/<body/)
+    assert_not email.html_part.body.match(%r{</?mj.+?>})
+    assert email.html_part.body.include?('<body')
     assert email.html_part.body.match(/Hello, user@example.com!/)
-    assert email.html_part.body.match(%r{<h2>We inform you about something</h2>})
+    assert email.html_part.body.include?('<h2>We inform you about something</h2>')
     assert email.html_part.body.match(%r{<a href="https://www.example.com">this link</a>})
-    assert email.html_part.body.match(/tracking-code-123/)
+    assert email.html_part.body.include?('tracking-code-123')
 
-    assert email.text_part.body.match(/We inform you about something/)
+    assert email.text_part.body.include?('We inform you about something')
     assert email.text_part.body.match(%r{Please visit https://www.example.com})
   end
 
-  test "Invalid template raises error with validation level strict" do
+  test 'Invalid template raises error with validation level strict' do
     with_settings(validation_level: 'strict') do
-      email = NotifierMailer.invalid_template("user@example.com")
+      email = NotifierMailer.invalid_template('user@example.com')
       assert_raise(ActionView::Template::Error) { email.html_part.body.to_s }
     end
   end
 
-  test "Invalid template gets compiled with validation level soft" do
+  test 'Invalid template gets compiled with validation level soft' do
     with_settings(validation_level: 'soft') do
-      email = NotifierMailer.invalid_template("user@example.com")
-      assert email.text_part.body.match(/This is valid/)
-      assert email.html_part.body.match(/This is valid/)
-      refute email.html_part.body.match(/This is invalid/)
+      email = NotifierMailer.invalid_template('user@example.com')
+      assert email.text_part.body.include?('This is valid')
+      assert email.html_part.body.include?('This is valid')
+      assert_not email.html_part.body.include?('This is invalid')
     end
   end
 end
 
 class NotifierMailerTest < ActiveSupport::TestCase
-  test "old mjml-rails configuration style MJML template is rendered correctly" do
-    email = NoLayoutMailer.inform_contact("user@example.com")
+  test 'old mjml-rails configuration style MJML template is rendered correctly' do
+    email = NoLayoutMailer.inform_contact('user@example.com')
 
-    assert_equal "text/html", email.mime_type
+    assert_equal 'text/html', email.mime_type
 
-    refute email.body.match(%r{</?mj.+?>})
-    assert email.body.match(/<body/)
+    assert_not email.body.match(%r{</?mj.+?>})
+    assert email.body.include?('<body')
     assert email.body.match(/Welcome, user@example.com!/)
-    assert email.body.match(%r{<h2>We inform you about something</h2>})
+    assert email.body.include?('<h2>We inform you about something</h2>')
     assert email.body.match(%r{<a href="https://www.example.com">this link</a>})
-    refute email.body.match(/tracking-code-123/)
+    assert_not email.body.include?('tracking-code-123')
   end
 
-  test "old mjml-rails MJML template with owa is rendered correctly" do
-    email = NoLayoutMailer.with_owa("user@example.com")
+  test 'old mjml-rails MJML template with owa is rendered correctly' do
+    email = NoLayoutMailer.with_owa('user@example.com')
 
-    assert_equal "text/html", email.mime_type
+    assert_equal 'text/html', email.mime_type
 
-    refute email.body.match(%r{</?mj.+?>})
-    assert email.body.match(/<body/)
+    assert_not email.body.match(%r{</?mj.+?>})
+    assert email.body.include?('<body')
     assert email.body.match(/Welcome, user@example.com!/)
-    assert email.body.match(%r{<h2>We inform you about something</h2>})
+    assert email.body.include?('<h2>We inform you about something</h2>')
     assert email.body.match(%r{<a href="https://www.example.com">this link</a>})
-    refute email.body.match(/tracking-code-123/)
+    assert_not email.body.include?('tracking-code-123')
   end
 end
 

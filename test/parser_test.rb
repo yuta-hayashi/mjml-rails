@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 describe Mjml::Parser do
@@ -57,7 +59,7 @@ describe Mjml::Parser do
   describe '#run' do
     describe 'when shell command failed' do
       it 'raises exception' do
-        err = expect { parser.run "/tmp/non_existent_file.mjml" }.must_raise(Mjml::Parser::ParseError)
+        err = expect { parser.run '/tmp/non_existent_file.mjml' }.must_raise(Mjml::Parser::ParseError)
         expect(err.message).must_include 'Command line error'
       end
     end

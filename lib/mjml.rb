@@ -1,10 +1,12 @@
-require "rubygems"
-require "open3"
+# frozen_string_literal: true
 
-require "mjml/handler"
-require "mjml/parser"
+require 'rubygems'
+require 'open3'
 
-require "mjml/railtie" if defined?(Rails)
+require 'mjml/handler'
+require 'mjml/parser'
+
+require 'mjml/railtie' if defined?(Rails)
 
 module Mjml
   mattr_accessor \
@@ -21,11 +23,12 @@ module Mjml
 
   @@template_language = :erb
   @@raise_render_exception = true
-  @@mjml_binary_version_supported = "4."
-  @@mjml_binary_error_string = "Couldn't find the MJML #{Mjml.mjml_binary_version_supported} binary.. have you run $ npm install mjml?"
+  @@mjml_binary_version_supported = '4.'
+  @@mjml_binary_error_string = "Couldn't find the MJML #{Mjml.mjml_binary_version_supported} binary.." \
+                               ' have you run $ npm install mjml?'
   @@beautify = true
   @@minify = false
-  @@validation_level = "strict"
+  @@validation_level = 'strict'
 
   def self.check_version(bin)
     stdout, _, status = run_mjml('--version', mjml_bin: bin)
@@ -52,21 +55,23 @@ module Mjml
 
   def self.check_for_custom_mjml_binary
     if const_defined?('BIN') && Mjml::BIN.present?
-      logger.warn('Setting `Mjml::BIN` is deprecated and will be removed in a future version! Please use `Mjml.mjml_binary=` instead.')
+      logger.warn('Setting `Mjml::BIN` is deprecated and will be removed in a future version! ' \
+                  'Please use `Mjml.mjml_binary=` instead.')
       self.mjml_binary = Mjml::BIN
       remove_const 'BIN'
     end
 
-    return unless mjml_binary.present?
+    return if mjml_binary.blank?
 
     return mjml_binary if check_version(mjml_binary)
 
-    raise "MJML.mjml_binary is set to '#{mjml_binary}' but MJML-Rails could not validate that it is a valid MJML binary. Please check your configuration."
+    raise "MJML.mjml_binary is set to '#{mjml_binary}' but MJML-Rails could not validate that " \
+          'it is a valid MJML binary. Please check your configuration.'
   end
 
   def self.check_for_yarn_mjml_binary
     yarn_bin = `which yarn`.chomp
-    return unless yarn_bin.present?
+    return if yarn_bin.blank?
 
     mjml_bin = "#{yarn_bin} run mjml"
     return mjml_bin if check_version(mjml_bin)
@@ -96,7 +101,8 @@ module Mjml
   end
 
   def self.discover_mjml_bin
-    logger.warn('`Mjml.discover_mjml_bin` is deprecated and has no effect anymore! Please use `Mjml.mjml_binary=` to set a custom MJML binary.')
+    logger.warn('`Mjml.discover_mjml_bin` is deprecated and has no effect anymore! ' \
+                'Please use `Mjml.mjml_binary=` to set a custom MJML binary.')
   end
 
   def self.setup
@@ -108,7 +114,7 @@ module Mjml
 
     def logger
       @logger ||= Logger.new($stdout).tap do |log|
-        log.progname = self.name
+        log.progname = name
       end
     end
   end
