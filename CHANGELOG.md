@@ -1,3 +1,7 @@
+## 4.7.0
+
+* Florian Dütsch added RuboCop integration.
+
 ## 4.6.1
 
 * doits simplified the MJML Handler class and regex, so rendering should be faster.
