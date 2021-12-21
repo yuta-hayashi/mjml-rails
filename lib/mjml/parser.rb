@@ -29,7 +29,7 @@ module Mjml
 
       ''
     ensure
-      in_tmp_file.unlink
+      in_tmp_file&.unlink
     end
 
     # Exec mjml command
