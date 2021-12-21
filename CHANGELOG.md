@@ -1,3 +1,7 @@
+## 4.7.1
+
+* Florian Dütsch fixed a bug where Mjml::Parser#render suppresses errors in case of Tempfile exceptions.
+
 ## 4.7.0
 
 * Florian Dütsch added RuboCop integration.
