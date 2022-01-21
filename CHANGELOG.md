@@ -1,3 +1,7 @@
+## 4.7.2
+
+* Florian Dütsch added the Node process exit code when the parser raises a ParseError.
+
 ## 4.7.1
 
 * Florian Dütsch fixed a bug where Mjml::Parser#render suppresses errors in case of Tempfile exceptions.
