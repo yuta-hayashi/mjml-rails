@@ -41,7 +41,12 @@ module Mjml
         command = "-r #{in_tmp_file} -o #{out_tmp_file.path} " \
                   "--config.beautify #{beautify} --config.minify #{minify} --config.validationLevel #{validation_level}"
         _, stderr, status = Mjml.run_mjml(command)
-        raise ParseError, stderr.chomp unless status.success?
+
+        unless status.success?
+          # The process status ist quite helpful in case of dying processes without STDERR output.
+          # Node exit codes are documented here: https://node.readthedocs.io/en/latest/api/process/#exit-codes
+          raise ParseError, "#{stderr.chomp}\n(process status: #{status})"
+        end
 
         Mjml.logger.warn(stderr.chomp) if stderr.present?
         out_tmp_file.read

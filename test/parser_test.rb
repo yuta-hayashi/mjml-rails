@@ -66,9 +66,16 @@ describe Mjml::Parser do
 
   describe '#run' do
     describe 'when shell command failed' do
+      let(:error_msg) do
+        expect { parser.run '/tmp/non_existent_file.mjml' }.must_raise(Mjml::Parser::ParseError).message
+      end
+
       it 'raises exception' do
-        err = expect { parser.run '/tmp/non_existent_file.mjml' }.must_raise(Mjml::Parser::ParseError)
-        expect(err.message).must_include 'Command line error'
+        expect(error_msg).must_include 'Command line error'
+      end
+
+      it 'includes process status' do
+        expect(error_msg).must_match(/\(process status: .+\)/)
       end
     end
   end
