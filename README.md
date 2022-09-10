@@ -139,6 +139,15 @@ Mjml.setup do |config|
 end
 ```
 
+If you are experiencing slow compilation times, you may want to point directly at your binary:
+
+```ruby
+# config/initializers/mjml.rb
+Mjml.setup do |config|
+  config.mjml_binary = Rails.root.join("node_modules/mjml/bin/mjml")
+end
+```
+
 ### MJML v3.x & v4.x support
 
 Version 4.x of this gem brings support for MJML 4.x
