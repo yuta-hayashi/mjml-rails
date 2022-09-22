@@ -71,9 +71,9 @@ module Mjml
 
   def self.check_for_yarn_mjml_binary
     yarn_bin = `which yarn`.chomp
-    return if yarn_bin.blank?
+    return unless yarn_bin.present? && (installer_path = bin_path_from(yarn_bin)).present?
 
-    mjml_bin = "#{yarn_bin} run mjml"
+    mjml_bin = File.join(installer_path, 'mjml')
     return mjml_bin if check_version(mjml_bin)
   end
 
