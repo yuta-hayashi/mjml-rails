@@ -1,3 +1,7 @@
+## 4.8.0
+
+* Alan Halatian updated the MJML binary discovery when installed with Yarn.
+
 ## 4.7.2
 
 * Florian Dütsch added the Node process exit code when the parser raises a ParseError.
