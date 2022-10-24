@@ -74,6 +74,9 @@ npm install mjml
 
 # with yarn
 yarn add mjml
+
+# or install it globally (The best way for Rails 7.x.x with importmaps)
+npm install -g mjml
 ```
 
 MJML-Rails falls back to a global installation of MJML but it is strongly recommended to add MJML directly to your project.
