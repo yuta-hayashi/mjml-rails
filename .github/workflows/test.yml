@@ -23,15 +23,15 @@ jobs:
     name: ${{ matrix.package_manager }}, Rails ${{ matrix.rails_version }}, Ruby ${{ matrix.ruby_version }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby_version }}
       - name: Set up Node
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
-          node-version: "14"
+          node-version: "18"
       - name: Install rails dependencies
         env:
           RAILS_VERSION: ${{ matrix.rails_version }}
