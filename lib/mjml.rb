@@ -44,7 +44,7 @@ module Mjml
   def self.valid_mjml_binary
     self.valid_mjml_binary = @@valid_mjml_binary ||
                              check_for_custom_mjml_binary ||
-                             check_for_yarn_mjml_binary ||
+                            #  check_for_yarn_mjml_binary ||
                              check_for_npm_mjml_binary ||
                              check_for_global_mjml_binary
 
