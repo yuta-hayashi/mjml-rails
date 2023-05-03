@@ -79,9 +79,9 @@ module Mjml
 
   def self.check_for_npm_mjml_binary
     npm_bin = `which npm`.chomp
-    return unless npm_bin.present? && (installer_path = bin_path_from(npm_bin)).present?
+    return if npm_bin.blank?
 
-    mjml_bin = File.join(installer_path, 'mjml')
+    mjml_bin = "#{npm_bin} exec --no -- mjml"
     return mjml_bin if check_version(mjml_bin)
   end
 
