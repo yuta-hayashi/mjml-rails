@@ -79,10 +79,15 @@ module Mjml
 
   def self.check_for_npm_mjml_binary
     npm_bin = `which npm`.chomp
-    return unless npm_bin.present? && (installer_path = bin_path_from(npm_bin)).present?
+    return if npm_bin.blank?
 
-    mjml_bin = File.join(installer_path, 'mjml')
+    stdout, _, status = Open3.capture3("#{npm_bin} root")
+    return unless status.success?
+
+    mjml_bin = File.join(stdout.chomp, '.bin', 'mjml')
     return mjml_bin if check_version(mjml_bin)
+  rescue Errno::ENOENT # package manager is not installed
+    nil
   end
 
   def self.check_for_global_mjml_binary
