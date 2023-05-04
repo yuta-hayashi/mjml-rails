@@ -42,11 +42,13 @@ jobs:
       - name: Install mjml with npm
         if: ${{ matrix.package_manager == 'npm' }}
         run: |
-          npm uninstall -g yarn
+          alias yarn='echo'
           npm add mjml
       - name: Install mjml with yarn
         if: ${{ matrix.package_manager == 'yarn' }}
-        run: yarn add mjml
+        run: |
+          unalias yarn
+          yarn add mjml
       - name: Run tests
         env:
           RAILS_VERSION: ${{ matrix.rails_version }}
